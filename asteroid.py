@@ -10,10 +10,10 @@ class Asteroid(Entity):
 
     def __init__(self, galaxy):
         wireframe = [
-            #Vector2(-20.0, 20.0),  Vector2(-25.0, 5.0),   Vector2(-25.0, -10.0),
-            #Vector2(-5.0, -10.0),  Vector2(-10.0, -20.0), Vector2(5.0, -20.0),
-            #Vector2(20.0, -10.0),  Vector2(20.0, -5.0),   Vector2(0.0, 0.0),
-            #Vector2(20.0, 10.0),   Vector2(10.0, 20.0),   Vector2(0.0, 15.0)
+            Vector2(-20.0, 20.0),  Vector2(-25.0, 5.0),   Vector2(-25.0, -10.0),
+            Vector2(-5.0, -10.0),  Vector2(-10.0, -20.0), Vector2(5.0, -20.0),
+            Vector2(20.0, -10.0),  Vector2(20.0, -5.0),   Vector2(0.0, 0.0),
+            Vector2(20.0, 10.0),   Vector2(10.0, 20.0),   Vector2(0.0, 15.0)
         ]
         super().__init__(galaxy, "asteroid", wireframe, WIDTH, WHITE)
         width, height = galaxy.size
