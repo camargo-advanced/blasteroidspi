@@ -1,4 +1,7 @@
 from utils import *
+import pygame
+from pygame.locals import *
+from ship import ROTATING_CCW, ROTATING_CW, NOT_ROTATING, MOVING_BW, MOVING_FW, NOT_MOVING
 
 
 class Galaxy():
@@ -16,13 +19,20 @@ class Galaxy():
     def remove_entity(self, entity):
         del self.entities[entity.id]
 
-    def get(self, entity_id):
+    def get_entity(self, entity_id):
         if entity_id in self.entities:
             return self.entities[entity_id]
         else:
             return None
 
+    def get_entity_by_name(self, entity_name):
+        for entity in self.entities.values():
+            if entity.name == entity_name:
+                return entity
+        return None
+
     def update(self, time_passed):
+        self.process_events()
         time_passed_seconds = time_passed / 1000.0
         for entity in list(self.entities.values()):
             entity.update(time_passed_seconds)
@@ -34,3 +44,21 @@ class Galaxy():
         surface.fill(BLACK)
         for entity in self.entities.values():
             entity.render(surface)
+
+    def process_events(self):
+        for event in pygame.event.get([KEYUP, KEYDOWN]):
+            if event.type == KEYDOWN:
+                if event.key == K_LEFT:
+                    self.get_entity_by_name('ship').set_rotation(ROTATING_CCW)
+                if event.key == K_RIGHT:
+                    self.get_entity_by_name('ship').set_rotation(ROTATING_CW)
+                if event.key == K_UP:
+                    self.get_entity_by_name('ship').set_movement(MOVING_FW)
+                if event.key == K_DOWN:
+                    self.get_entity_by_name('ship').set_movement(MOVING_BW)
+            if event.type == KEYUP:
+                if event.key == K_LEFT or event.key == K_RIGHT:
+                    self.get_entity_by_name('ship').set_rotation(NOT_ROTATING)
+                if event.key == K_UP or event.key == K_DOWN:
+                    self.get_entity_by_name('ship').set_movement(NOT_MOVING)
+

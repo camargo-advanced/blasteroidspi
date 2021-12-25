@@ -23,9 +23,8 @@ def run():
     clock = pygame.time.Clock()
     done = False
     while not done:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                done = True
+        for event in pygame.event.get(QUIT):
+            done = True
 
         time_passed = clock.tick(FPS)
         screen.lock()

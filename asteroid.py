@@ -4,7 +4,7 @@ from pygame.math import Vector2
 from utils import *
 
 WIDTH = 3  # line thickness
-
+SCALE_FACTOR = 3
 
 class Asteroid(WEntity):
 
@@ -25,7 +25,7 @@ class Asteroid(WEntity):
         self.linear_velocity = Vector2(90.0, 0.0).rotate(random() * 360.0)
         # rotation at center of rock, in degress per second
         self.rotation_velocity = 17.19
-        self.size = 3  # scale factor
+        self.size = SCALE_FACTOR
 
 #    def render(self, surface):
 #        super().render(surface)

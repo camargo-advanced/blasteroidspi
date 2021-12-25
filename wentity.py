@@ -14,7 +14,7 @@ class WEntity():
         self.position = Vector2(.0, 0.0)
         self.linear_velocity = Vector2(.0, 0.0)
         self.rotation_velocity = 0.0
-        self.size = 0.0
+        self.size = 1
         self.rotation_angle = 0.0
 
     def render(self, surface):
