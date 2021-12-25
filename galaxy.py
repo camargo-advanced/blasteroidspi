@@ -1,9 +1,7 @@
-import pygame
-
-BLACK = (0, 0, 0)
+from utils import *
 
 
-class Galaxy(object):
+class Galaxy():
 
     def __init__(self, size):
         self.size = size
@@ -28,6 +26,9 @@ class Galaxy(object):
         time_passed_seconds = time_passed / 1000.0
         for entity in list(self.entities.values()):
             entity.update(time_passed_seconds)
+            # entities require authorization to leave the galaxy,
+            # thus we need to keep entities inside it !
+            wrap_coordinates(entity.position, self.size)
 
     def render(self, surface):
         surface.fill(BLACK)
