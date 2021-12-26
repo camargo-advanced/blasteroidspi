@@ -1,7 +1,8 @@
-from wentity import WEntity
+from wentity import CLOCKWISE, WEntity
 from random import random
 from pygame.math import Vector2
 from utils import *
+from wentity import FORWARD, CLOCKWISE
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 3
@@ -22,10 +23,11 @@ class Asteroid(WEntity):
         width, height = galaxy.size
         self.position = Vector2(random()*width, random()*height)
         # linear velocity in pixels per second at random angle
-        self.linear_velocity = Vector2(90.0, 0.0).rotate(random() * 360.0)
+        self.velocity = Vector2(90.0, 0.0).rotate(random() * 360.0)
         # rotation at center of rock, in degress per second
-        self.rotation_velocity = 17.19
+        self.angular_speed = 17.19
         self.size = SCALE_FACTOR
+        self.rotating = CLOCKWISE
 
 #    def render(self, surface):
 #        super().render(surface)

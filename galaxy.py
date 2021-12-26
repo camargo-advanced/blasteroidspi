@@ -1,7 +1,7 @@
 from utils import *
 import pygame
 from pygame.locals import *
-from ship import ROTATING_CCW, ROTATING_CW, NOT_ROTATING, MOVING_BW, MOVING_FW, NOT_MOVING
+from wentity import FORWARD, BACKWARDS, CLOCKWISE, CCLOCKWISE
 
 
 class Galaxy():
@@ -49,16 +49,15 @@ class Galaxy():
         for event in pygame.event.get([KEYUP, KEYDOWN]):
             if event.type == KEYDOWN:
                 if event.key == K_LEFT:
-                    self.get_entity_by_name('ship').set_rotation(ROTATING_CCW)
+                    self.get_entity_by_name('ship').start_rotating(CCLOCKWISE)
                 if event.key == K_RIGHT:
-                    self.get_entity_by_name('ship').set_rotation(ROTATING_CW)
+                    self.get_entity_by_name('ship').start_rotating(CLOCKWISE)
                 if event.key == K_UP:
-                    self.get_entity_by_name('ship').set_movement(MOVING_FW)
+                    self.get_entity_by_name('ship').start_accelerating(FORWARD)
                 if event.key == K_DOWN:
-                    self.get_entity_by_name('ship').set_movement(MOVING_BW)
+                    self.get_entity_by_name('ship').start_accelerating(BACKWARDS)
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
-                    self.get_entity_by_name('ship').set_rotation(NOT_ROTATING)
+                    self.get_entity_by_name('ship').stop_rotating()
                 if event.key == K_UP or event.key == K_DOWN:
-                    self.get_entity_by_name('ship').set_movement(NOT_MOVING)
-
+                    self.get_entity_by_name('ship').stop_accelerating()
