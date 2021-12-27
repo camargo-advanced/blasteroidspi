@@ -55,7 +55,8 @@ class Galaxy():
                 if event.key == K_UP:
                     self.get_entity_by_name('ship').start_accelerating(FORWARD)
                 if event.key == K_DOWN:
-                    self.get_entity_by_name('ship').start_accelerating(BACKWARDS)
+                    self.get_entity_by_name(
+                        'ship').start_accelerating(BACKWARDS)
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_RIGHT:
                     self.get_entity_by_name('ship').stop_rotating()

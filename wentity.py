@@ -26,26 +26,24 @@ class WEntity():
         self.accelerating = None
 
     def render(self, surface):
-        # if there is a wireframe to render,
-        if self.wireframe and len(self.wireframe) > 0:
-            # rotate, scale, translate,
-            draw = []
-            for point in self.wireframe:
-                draw.append(
-                    Vector2(point).rotate(self.angle) *
-                    self.size + self.position
-                )
-            # and draw.
-            pygame.draw.lines(surface, self.color, True, draw, self.width)
+        # rotate, scale, translate,
+        draw = []
+        for point in self.wireframe:
+            draw.append(
+                Vector2(point).rotate(self.angle) *
+                self.size + self.position
+            )
+        # and draw.
+        pygame.draw.lines(surface, self.color, True, draw, self.width)
 
     def update(self, time_passed):
-        # update ship angle
+        # update entity angle
         if self.rotating == CLOCKWISE:
             self.angle += self.angular_speed * time_passed
         elif self.rotating == CCLOCKWISE:
             self.angle -= self.angular_speed * time_passed
 
-        # generate a acceleration vector towards current ship angle
+        # generate a acceleration vector towards current entity angle
         acceleration = Vector2(0.0, 0.0)
         if self.accelerating == FORWARD:
             acceleration = Vector2(0.0, -self.acceleration).rotate(self.angle)

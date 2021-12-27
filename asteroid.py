@@ -1,3 +1,4 @@
+from ship import ANGULAR_SPEED
 from wentity import CLOCKWISE, WEntity
 from random import random
 from pygame.math import Vector2
@@ -6,6 +7,8 @@ from wentity import FORWARD, CLOCKWISE
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 3
+VELOCITY = 90.0 # pixels per second
+ANGULAR_SPEED = 17.19 # degrees per second
 
 class Asteroid(WEntity):
 
@@ -19,15 +22,20 @@ class Asteroid(WEntity):
             Vector2(10.0, 20.0),   Vector2(0.0, 15.0)
         ]
         super().__init__(galaxy, "asteroid", wireframe, WIDTH, WHITE)
+
         # entity initial position
         width, height = galaxy.size
         self.position = Vector2(random()*width, random()*height)
+        
         # linear velocity in pixels per second at random angle
-        self.velocity = Vector2(90.0, 0.0).rotate(random() * 360.0)
+        self.velocity = Vector2(0.0, VELOCITY).rotate(random() * 360.0)
+        
         # rotation at center of rock, in degress per second
-        self.angular_speed = 17.19
-        self.size = SCALE_FACTOR
+        self.angular_speed = ANGULAR_SPEED
         self.rotating = CLOCKWISE
+
+        # for scaling the wireframe
+        self.size = SCALE_FACTOR
 
 #    def render(self, surface):
 #        super().render(surface)
