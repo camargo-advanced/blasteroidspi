@@ -24,6 +24,7 @@ class WEntity():
         self.size = 1
         self.rotating = None
         self.accelerating = None
+        self.dead = False
 
     def render(self, surface):
         # rotate, scale, translate,
@@ -69,4 +70,3 @@ class WEntity():
     def stop_accelerating(self):
         self.accelerating = None
 
- 

@@ -36,9 +36,16 @@ class Galaxy():
         time_passed_seconds = time_passed / 1000.0
         for entity in list(self.entities.values()):
             entity.update(time_passed_seconds)
-            # entities require authorization to leave the galaxy,
-            # thus we need to keep entities inside it !
-            wrap_coordinates(entity.position, self.size)
+            if not self.in_screen_space(entity.position):
+                # entities require authorization to leave the galaxy,
+                # thus we must keep entities inside it !
+                if entity.name == 'asteroid' or entity.name == 'ship':
+                    self.wrap_coordinates(entity.position)
+                elif entity.name == 'blast':
+                    entity.dead = True
+            # remove all dead entities
+            if entity.dead == True:
+                self.remove_entity(entity)
 
     def render(self, surface):
         surface.fill(BLACK)
@@ -64,3 +71,26 @@ class Galaxy():
                     self.get_entity_by_name('ship').stop_rotating()
                 if event.key == K_UP or event.key == K_DOWN:
                     self.get_entity_by_name('ship').stop_accelerating()
+
+    def wrap_coordinates(self, position):
+        width, height = self.size
+        if position.x < 0.0:
+            position.x += width
+        if position.x >= width:
+            position.x -= width
+        if position.y < 0.0:
+            position.y += height
+        if position.y >= height:
+            position.y -= height
+
+    def in_screen_space(self, position):
+        width, height = self.size
+        if (position.x < 0.0):
+            return False
+        if (position.x >= width):
+            return False
+        if (position.y < 0.0):
+            return False
+        if (position.y >= height):
+            return False
+        return True

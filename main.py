@@ -7,7 +7,7 @@ from ship import Ship
 SCREEN_SIZE = (1600, 900)
 COLOR_DEPTH = 8
 FPS = 50
-NUMBER_ASTEROIDS_AT_GENESYS = 9
+NUMBER_OF_ASTEROIDS_AT_GENESYS = 9
 
 
 def run():
@@ -17,7 +17,7 @@ def run():
 
     # build a new galaxy with a number of asteroids and a ship
     galaxy = Galaxy(SCREEN_SIZE)
-    for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
+    for i in range(NUMBER_OF_ASTEROIDS_AT_GENESYS):
         galaxy.add_entity(Asteroid(galaxy))
     galaxy.add_entity(Ship(galaxy))
 
