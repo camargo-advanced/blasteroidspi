@@ -9,22 +9,19 @@ WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
 ACCELERATION = 150.0  # pixels per second
 ANGULAR_SPEED = 180.0  # degrees per second
+SHIP_WIREFRAME = [
+    Vector2(0.0, -5.0),  Vector2(3.0, 4.0), Vector2(1.5, 2.0),
+    Vector2(-1.5, 2.0), Vector2(-3.0, 4.0)
+]
+THRUST_WIREFRAME = [
+    Vector2(1.0, 2.0), Vector2(0.0, 5.0), Vector2(-1.0, 2.0)
+]
 
 
 class Ship(WEntity):
 
     def __init__(self, galaxy):
-        wireframe = [
-            Vector2(0.0, -5.0),  Vector2(3.0, 4.0),
-            Vector2(1.5, 2.0),   Vector2(-1.5, 2.0),
-            Vector2(-3.0, 4.0)
-        ]
-        self.wireframe_thrust = [
-            Vector2(1.0, 2.0), Vector2(0.0, 5.0),
-            Vector2(-1.0, 2.0)
-        ]
-
-        super().__init__(galaxy, "ship", wireframe, WIDTH, GREEN)
+        super().__init__(galaxy, "ship", SHIP_WIREFRAME, WIDTH, GREEN)
 
         # entity initial position
         width, height = galaxy.size
@@ -40,12 +37,6 @@ class Ship(WEntity):
     def render(self, surface):
         super().render(surface)
         if self.accelerating == FORWARD:
-            # rotate, scale, translate,
-            draw = []
-            for point in self.wireframe_thrust:
-                draw.append(
-                    Vector2(point).rotate(self.angle) *
-                    self.size + self.position
-                )
-            # and draw.
-            pygame.draw.lines(surface, self.color, True, draw, self.width)
+            self.wireframe = THRUST_WIREFRAME
+            super().render(surface)
+            self.wireframe = SHIP_WIREFRAME
