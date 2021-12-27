@@ -68,3 +68,5 @@ class WEntity():
 
     def stop_accelerating(self):
         self.accelerating = None
+
+ 

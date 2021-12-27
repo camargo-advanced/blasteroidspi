@@ -1,6 +1,5 @@
 import pygame
 from pygame.locals import *
-from sys import exit
 from asteroid import Asteroid
 from galaxy import Galaxy
 from ship import Ship
