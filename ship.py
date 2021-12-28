@@ -2,6 +2,7 @@ import random
 
 from pygame import time
 from blast import Blast
+from sound import Sound
 from wentity import WEntity
 from pygame.math import Vector2
 from utils import *
@@ -47,14 +48,18 @@ class Ship(WEntity):
             # and then add it to the galaxy
             blast = Blast(self.galaxy, Vector2(self.position), self.angle)
             self.galaxy.add_entity(blast)
-            self.firing = False
-        
+
     def render(self, surface):
+        # render visuals,
         super().render(surface)
         if self.accelerating == FORWARD:
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
+        # and sounds
+        if self.firing:
+            Sound().play('fire')
+            self.firing = False
 
     def fire(self):
         self.firing = True

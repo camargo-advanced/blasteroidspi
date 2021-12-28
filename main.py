@@ -1,9 +1,9 @@
 import pygame
 from pygame.locals import *
-from sys import exit
 from asteroid import Asteroid
 from galaxy import Galaxy
 from ship import Ship
+from sound import Sound
 
 SCREEN_SIZE = (1600, 900)
 COLOR_DEPTH = 8
@@ -13,6 +13,11 @@ NUMBER_ASTEROIDS_AT_GENESYS = 9
 def run():
     # initializes pygame library and set screen mode
     pygame.init()
+
+    # initialize sounds and play the first beep
+    Sound().play('beep')
+
+    # initialize display
     screen = pygame.display.set_mode(SCREEN_SIZE, 0, COLOR_DEPTH)
 
     # build a new galaxy with a number of asteroids and a ship
