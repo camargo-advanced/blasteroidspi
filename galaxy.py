@@ -43,14 +43,17 @@ class Galaxy():
                     self.wrap_coordinates(entity.position)
                 elif entity.name == 'blast':
                     entity.dead = True
-            # remove all dead entities
-            if entity.dead == True:
-                self.remove_entity(entity)
 
     def render(self, surface):
         surface.fill(BLACK)
         for entity in self.entities.values():
             entity.render(surface)
+
+    def cleanup(self):
+        # remove all dead entities
+        for entity in list(self.entities.values()):
+            if entity.dead == True:
+                self.remove_entity(entity)
 
     def process_events(self):
         for event in pygame.event.get([KEYUP, KEYDOWN]):

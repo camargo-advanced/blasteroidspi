@@ -39,6 +39,7 @@ def run():
         galaxy.update(time_passed)
         screen.unlock()
         galaxy.render(screen)
+        galaxy.cleanup()
 
         pygame.display.flip()
 

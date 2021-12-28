@@ -1,4 +1,5 @@
 from ship import ANGULAR_SPEED
+from sound import Sound
 from wentity import WEntity, CLOCKWISE, CLOCKWISE
 from random import random
 from pygame.math import Vector2
@@ -33,6 +34,7 @@ class Asteroid(WEntity):
         self.rotating = CLOCKWISE
         self.size = SCALE_FACTOR
         self.times_hit = 0
+        self.exploding = False
 
     def update(self, time_passed):
         super().update(time_passed)
@@ -42,6 +44,7 @@ class Asteroid(WEntity):
         for entity in list(self.galaxy.entities.values()):
             if entity.name == 'blast':
                 if self.point_in_circle(entity.position):
+                    self.exploding = True
                     self.times_hit += 1
                     if self.times_hit < 3:
                         self.size /= 2
@@ -50,7 +53,16 @@ class Asteroid(WEntity):
                         self.galaxy.add_entity(self.fragment())
                         entity.dead = True
                     else:
+                        self.exploding = True
                         self.dead = True
+
+    def render(self, surface):
+        # render visuals,
+        super().render(surface)
+        # and sounds
+        if self.exploding:
+            Sound().play('bang')
+            self.exploding = False
 
     def fragment(self):
         fragment = Asteroid(self.galaxy)

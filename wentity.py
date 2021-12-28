@@ -26,17 +26,6 @@ class WEntity():
         self.accelerating = None
         self.dead = False
 
-    def render(self, surface):
-        # rotate, scale, translate,
-        draw = []
-        for point in self.wireframe:
-            draw.append(
-                Vector2(point).rotate(self.angle) *
-                self.size + self.position
-            )
-        # and draw.
-        pygame.draw.lines(surface, self.color, True, draw, self.width)
-
     def update(self, time_passed):
         # update entity angle
         if self.rotating == CLOCKWISE:
@@ -58,6 +47,17 @@ class WEntity():
         # update velocity vector
         self.velocity += acceleration * time_passed
 
+    def render(self, surface):
+        # rotate, scale, translate,
+        draw = []
+        for point in self.wireframe:
+            draw.append(
+                Vector2(point).rotate(self.angle) *
+                self.size + self.position
+            )
+        # and draw.
+        pygame.draw.lines(surface, self.color, True, draw, self.width)
+
     def start_rotating(self, direction):
         self.rotating = direction
 
@@ -69,4 +69,3 @@ class WEntity():
 
     def stop_accelerating(self):
         self.accelerating = None
-
