@@ -11,9 +11,7 @@ BLAST_WIREFRAME = [
 
 
 class Blast(WEntity):
-
-    def __init__(self, galaxy):
+    def __init__(self, galaxy, position, angle):
         super().__init__(galaxy, "blast", BLAST_WIREFRAME, WIDTH, WHITE)
-
-        # linear velocity in pixels per second
-        self.velocity = Vector2(0.0, -SPEED)
+        self.position = position
+        self.velocity = Vector2(0.0, -SPEED).rotate(angle)

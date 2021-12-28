@@ -1,4 +1,6 @@
 import random
+
+from pygame import time
 from blast import Blast
 from wentity import WEntity
 from pygame.math import Vector2
@@ -35,6 +37,18 @@ class Ship(WEntity):
         # for scaling the wireframe
         self.size = SCALE_FACTOR
 
+        self.firing = False
+
+    def update(self, time_passed):
+        super().update(time_passed)
+        if self.firing:
+            # build a new blast, set its position to the ship's,
+            # set its velocity vector to ship's orientation
+            # and then add it to the galaxy
+            blast = Blast(self.galaxy, Vector2(self.position), self.angle)
+            self.galaxy.add_entity(blast)
+            self.firing = False
+        
     def render(self, surface):
         super().render(surface)
         if self.accelerating == FORWARD:
@@ -43,10 +57,4 @@ class Ship(WEntity):
             self.wireframe = SHIP_WIREFRAME
 
     def fire(self):
-        # build a new blast, set its position to the ship's,
-        # set its velocity vector to ship's orientation
-        # and then add it to the galaxy
-        blast = Blast(self.galaxy)
-        blast.position = Vector2(self.position)
-        blast.velocity = blast.velocity.rotate(self.angle)
-        self.galaxy.add_entity(blast)
+        self.firing = True

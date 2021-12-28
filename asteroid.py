@@ -4,6 +4,7 @@ from random import random
 from pygame.math import Vector2
 from math import sqrt
 from utils import *
+from copy import deepcopy
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 3
@@ -19,7 +20,7 @@ ASTEROID_WIREFRAME = [
 
 class Asteroid(WEntity):
 
-    def __init__(self, galaxy, size=SCALE_FACTOR, speed=SPEED, times_hit=0):
+    def __init__(self, galaxy):
         super().__init__(galaxy, "asteroid", ASTEROID_WIREFRAME, WIDTH, WHITE)
 
         # entity initial position
@@ -27,19 +28,16 @@ class Asteroid(WEntity):
         self.position = Vector2(random()*width, random()*height)
 
         # linear velocity in pixels per second at random angle
-        self.velocity = Vector2(0.0, speed).rotate(random() * 360.0)
+        self.velocity = Vector2(0.0, SPEED).rotate(random() * 360.0)
 
         # rotation at center of rock, in degress per second
         self.angular_speed = ANGULAR_SPEED
         self.rotating = CLOCKWISE
 
         # for scaling the wireframe
-        self.size = size
+        self.size = SCALE_FACTOR
 
-        # calculates the diameter of the rock
-        self.radius = self.diameter() * self.size / 2.0
-
-        self.times_hit = times_hit
+        self.times_hit = 0
 
     def update(self, time_passed):
         super().update(time_passed)
@@ -49,20 +47,19 @@ class Asteroid(WEntity):
         for entity in list(self.galaxy.entities.values()):
             if entity.name == 'blast':
                 if self.point_in_circle(entity.position):
-                    if self.times_hit == 2:
-                        self.dead = True
-                    else:
-                        # self.galaxy.add_entity(self.fragment())
-                        # self.galaxy.add_entity(self.fragment())
+                    self.times_hit += 1
+                    if self.times_hit < 3:
+                        self.size /= 2
+                        self.velocity *= 1.5
+                        #self.galaxy.add_entity(self.fragment())
                         entity.dead = True
+                    elif self.times_hit == 3:
                         self.dead = True
 
     def fragment(self):
-        asteroid = Asteroid(self.galaxy, size=self.size / 2.0,
-                            speed=self.velocity.lenght() * 1.5,
-                            times_hit=self.times_hit + 1)
-        asteroid.position = self.position
-        return asteroid
+        fragment = deepcopy(self) # NAO USAR !!!!!!!!!!!!!!!LENTO !!!!!
+        fragment.velocity.rotate_ip(random()*360)
+        return fragment
 
     def diameter(self):
         x_max, y_max = 0.0, 0.0
@@ -82,9 +79,9 @@ class Asteroid(WEntity):
                 y_min = point.y
 
         if abs(x_max-x_min) > abs(y_max-y_min):
-            return abs(x_max-x_min)
+            return abs(x_max-x_min) * self.size
         else:
-            return abs(y_max-y_min)
+            return abs(y_max-y_min) * self.size
 
     def point_in_circle(self, other_position):
         # calculate the distance between 2 points in 2D space
@@ -92,6 +89,6 @@ class Asteroid(WEntity):
                         + (other_position.y-self.position.y) ** 2)
 
         # if distance is less than the radius, we assume the objects have colided
-        if (distance <= self.radius):
+        if (distance <= self.diameter()/2):
             return True
         return False

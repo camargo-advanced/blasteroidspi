@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from sys import exit
 from asteroid import Asteroid
 from galaxy import Galaxy
 from ship import Ship
@@ -7,8 +8,7 @@ from ship import Ship
 SCREEN_SIZE = (1600, 900)
 COLOR_DEPTH = 8
 FPS = 50
-NUMBER_OF_ASTEROIDS_AT_GENESYS = 9
-
+NUMBER_ASTEROIDS_AT_GENESYS = 9
 
 def run():
     # initializes pygame library and set screen mode
@@ -17,12 +17,12 @@ def run():
 
     # build a new galaxy with a number of asteroids and a ship
     galaxy = Galaxy(SCREEN_SIZE)
-    for i in range(NUMBER_OF_ASTEROIDS_AT_GENESYS):
+    for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
         galaxy.add_entity(Asteroid(galaxy))
     galaxy.add_entity(Ship(galaxy))
 
     # main loop: set the framerate, updates entities in the galaxy
-    # render entities in the buffer and flips the buffer to screen
+    # render the entities on buffer and flips the buffer to screen
     clock = pygame.time.Clock()
     done = False
     while not done:
@@ -37,7 +37,6 @@ def run():
 
         pygame.display.flip()
 
-    # leaves the game
     pygame.quit()
 
 
