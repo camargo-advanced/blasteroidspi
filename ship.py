@@ -22,7 +22,7 @@ THRUST_WIREFRAME = [
 class Ship(WEntity):
 
     def __init__(self, galaxy):
-        super().__init__(galaxy, "ship", SHIP_WIREFRAME, WIDTH, GREEN)
+        super().__init__(galaxy, "ship", GREEN, SHIP_WIREFRAME, WIDTH)
 
         # entity initial position
         width, height = self.galaxy.size

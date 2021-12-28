@@ -21,7 +21,7 @@ ASTEROID_WIREFRAME = [
 class Asteroid(WEntity):
 
     def __init__(self, galaxy):
-        super().__init__(galaxy, "asteroid", ASTEROID_WIREFRAME, WIDTH, WHITE)
+        super().__init__(galaxy, "asteroid", WHITE, ASTEROID_WIREFRAME, WIDTH)
 
         # entity initial position is random
         width, height = self.galaxy.size
@@ -39,13 +39,15 @@ class Asteroid(WEntity):
     def update(self, time_passed):
         super().update(time_passed)
 
-        # if a blast hit me, I need to break myself
-        # into 2 smaller rocks !
         for entity in list(self.galaxy.entities.values()):
             if entity.name == 'blast':
                 if self.point_in_circle(entity.position):
+                    # if a blast hit me, I need to break myself
+                    # into 2 smaller rocks !
                     self.exploding = True
                     self.times_hit += 1
+                    self.galaxy.get_entity_by_name(
+                        'score').update_score(100*self.times_hit)
                     if self.times_hit < 3:
                         self.size /= 2
                         self.velocity *= 1.5
@@ -57,9 +59,8 @@ class Asteroid(WEntity):
                         self.dead = True
 
     def render(self, surface):
-        # render visuals,
+        # render visuals and sounds
         super().render(surface)
-        # and sounds
         if self.exploding:
             Sound().play('bang')
             self.exploding = False

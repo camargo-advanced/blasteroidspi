@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 from pygame.math import Vector2
+from entity import Entity
 
 CLOCKWISE = 1  # rotating clockwise
 CCLOCKWISE = -1  # rotating counter clockwise
@@ -8,15 +9,12 @@ FORWARD = 1  # accelerating forward
 BACKWARDS = -1  # accelerating backwards
 
 
-class WEntity():
+class WEntity(Entity):
 
-    def __init__(self, galaxy, name, wireframe, width, color):
-        self.galaxy = galaxy
-        self.name = name
+    def __init__(self, galaxy, name, color, wireframe, width):
+        super().__init__(galaxy, name, color)
         self.wireframe = wireframe
         self.width = width
-        self.color = color
-        self.position = Vector2(0.0, 0.0)
         self.velocity = Vector2(0.0, 0.0)
         self.acceleration = 0.0
         self.angular_speed = 0.0
@@ -24,9 +22,9 @@ class WEntity():
         self.size = 1
         self.rotating = None
         self.accelerating = None
-        self.dead = False
 
     def update(self, time_passed):
+        super().update(time_passed)
         # update entity angle
         if self.rotating == CLOCKWISE:
             self.angle += self.angular_speed * time_passed
@@ -48,6 +46,7 @@ class WEntity():
         self.velocity += acceleration * time_passed
 
     def render(self, surface):
+        super().render(surface)
         # rotate, scale, translate,
         draw = []
         for point in self.wireframe:

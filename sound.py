@@ -10,9 +10,7 @@ class Sound():
 
     def __new__(cls):
         if cls._instance is None:
-            print('Creating the object')
             cls._instance = super(Sound, cls).__new__(cls)
-            # pygame.mixer.init()
             cls._sounds['bang'] = pygame.mixer.Sound(
                 os.path.join('res', 'bang.wav'))
             cls._sounds['beep'] = pygame.mixer.Sound(
