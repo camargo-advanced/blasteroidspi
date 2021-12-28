@@ -4,7 +4,6 @@ from random import random
 from pygame.math import Vector2
 from math import sqrt
 from utils import *
-from copy import deepcopy
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 3
@@ -23,27 +22,23 @@ class Asteroid(WEntity):
     def __init__(self, galaxy):
         super().__init__(galaxy, "asteroid", ASTEROID_WIREFRAME, WIDTH, WHITE)
 
-        # entity initial position
+        # entity initial position is random
         width, height = self.galaxy.size
         self.position = Vector2(random()*width, random()*height)
 
         # linear velocity in pixels per second at random angle
         self.velocity = Vector2(0.0, SPEED).rotate(random() * 360.0)
 
-        # rotation at center of rock, in degress per second
         self.angular_speed = ANGULAR_SPEED
         self.rotating = CLOCKWISE
-
-        # for scaling the wireframe
         self.size = SCALE_FACTOR
-
         self.times_hit = 0
 
     def update(self, time_passed):
         super().update(time_passed)
 
-        # if a blast has hit me, I need to break
-        # into 3 new smaller rocks !
+        # if a blast hit me, I need to break myself
+        # into 2 smaller rocks !
         for entity in list(self.galaxy.entities.values()):
             if entity.name == 'blast':
                 if self.point_in_circle(entity.position):
@@ -51,14 +46,19 @@ class Asteroid(WEntity):
                     if self.times_hit < 3:
                         self.size /= 2
                         self.velocity *= 1.5
-                        #self.galaxy.add_entity(self.fragment())
+                        self.velocity.rotate_ip(random()*360)
+                        self.galaxy.add_entity(self.fragment())
                         entity.dead = True
-                    elif self.times_hit == 3:
+                    else:
                         self.dead = True
 
     def fragment(self):
-        fragment = deepcopy(self) # NAO USAR !!!!!!!!!!!!!!!LENTO !!!!!
+        fragment = Asteroid(self.galaxy)
+        fragment.position = Vector2(self.position)
+        fragment.velocity = Vector2(self.velocity)
         fragment.velocity.rotate_ip(random()*360)
+        fragment.size = self.size
+        fragment.times_hit = self.times_hit
         return fragment
 
     def diameter(self):
@@ -91,4 +91,5 @@ class Asteroid(WEntity):
         # if distance is less than the radius, we assume the objects have colided
         if (distance <= self.diameter()/2):
             return True
-        return False
+        else:
+            return False
