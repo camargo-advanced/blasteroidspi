@@ -1,5 +1,3 @@
-import random
-
 from pygame import time
 from blast import Blast
 from sound import Sound
@@ -7,7 +5,6 @@ from wentity import WEntity
 from pygame.math import Vector2
 from utils import *
 from wentity import FORWARD
-from random import random
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
@@ -50,13 +47,14 @@ class Ship(WEntity):
             self.galaxy.add_entity(blast)
 
     def render(self, surface):
-        # render visuals,
+        # render visuals and sounds
         super().render(surface)
         if self.accelerating == FORWARD:
+            if not Sound().busy():
+                Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
-        # and sounds
         if self.firing:
             Sound().play('fire')
             self.firing = False

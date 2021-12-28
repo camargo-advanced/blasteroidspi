@@ -10,6 +10,7 @@ COLOR_DEPTH = 8
 FPS = 50
 NUMBER_ASTEROIDS_AT_GENESYS = 9
 
+
 def run():
     # initializes pygame library and set screen mode
     pygame.init()
@@ -30,6 +31,7 @@ def run():
     # render the entities on buffer and flips the buffer to screen
     clock = pygame.time.Clock()
     done = False
+
     while not done:
         for event in pygame.event.get(QUIT):
             done = True
