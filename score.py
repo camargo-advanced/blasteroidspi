@@ -35,7 +35,7 @@ class Score(Entity):
         super().render(surface)
 
         # render score
-        text = str(self.score)
+        text = format(self.score, ',')
         if self.galaxy.get_entity_by_name('ship').shielded:
             text = text + " *"
         text_surface = self.font.render(
