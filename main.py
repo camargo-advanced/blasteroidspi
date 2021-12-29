@@ -1,3 +1,9 @@
+# TO-DO:
+#       - Trabalhar com múltiplos canais de aidio, para resolver o problema de
+#         não sair o som de explosao quando uma rocha bate na nave, caso a
+#         nave esteja com o thrust ativado (pois o som dele é que ocupa o canal).
+#
+
 import pygame
 from pygame.locals import *
 from asteroid import Asteroid
@@ -6,7 +12,6 @@ from score import Score
 from ship import Ship
 from sound import Sound
 
-#SCREEN_SIZE = (1600, 900)
 COLOR_DEPTH = 8
 FPS = 50
 NUMBER_ASTEROIDS_AT_GENESYS = 9
@@ -16,28 +21,27 @@ def run():
     # initialize pygame library and set screen mode
     pygame.init()
 
-    # initialize the sound system and plays the first beep
+    # play the first beep to indicate the game has started!
     Sound().play('beep')
 
-    # initialize the display
-    #screen = pygame.display.set_mode(SCREEN_SIZE, 0, COLOR_DEPTH)
-    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)
+    # initialize the display and clock
+    screen = pygame.display.set_mode(
+        flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)
     screen_size = pygame.display.get_window_size()
+    clock = pygame.time.Clock()
 
     # build a new galaxy with a number of asteroids, a ship and the score
     galaxy = Galaxy(screen_size)
     for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
         galaxy.add_entity(Asteroid(galaxy))
     galaxy.add_entity(Ship(galaxy))
-    galaxy.add_entity(Score(galaxy))
+    galaxy.add_entity(Score(galaxy, clock))
 
     # main loop: set the framerate, updates entities in the galaxy
     # render the entities on buffer and flips the buffer to screen
-    clock = pygame.time.Clock()
     done = False
-
     while not done:
-        for event in pygame.event.get(QUIT): # CTR+Q (Windows) or CMD+Q (MAC)
+        for event in pygame.event.get(QUIT):  # ALT+F4 (Windows) or CMD+Q (MAC)
             done = True
 
         time_passed = clock.tick(FPS)

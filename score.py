@@ -9,13 +9,16 @@ NUM_LIVES = 3
 
 
 class Score(Entity):
-    def __init__(self, galaxy):
+    def __init__(self, galaxy, clock):
         super().__init__(galaxy, "score", GREEN)
+        self.clock = clock
         self.location = Vector2(30, 5)
         self.reset_score()
         self.reset_lives()
         self.font = pygame.font.Font(os.path.join(
             'res', 'hyperspace-bold.otf'), 90)
+        self.font_fps = pygame.font.Font(os.path.join(
+            'res', 'hyperspace-bold.otf'), 20)
         self.ship = Ship(galaxy)  # ship template to render number of lives
 
     def update(self, time_passed):
@@ -34,6 +37,12 @@ class Score(Entity):
         for x in range(50, (self.lives*50)+1, 50):
             self.ship.position = Vector2(x, 160)
             self.ship.render(surface)
+        # render FPS
+        text = 'FPS = ' + format(self.clock.get_fps(), '.2f')
+        fps_overlay = self.font_fps.render(
+            text, False, self.color)
+        width, height = self.galaxy.size
+        surface.blit(fps_overlay, (width-150, 20))
 
     def reset_score(self):
         self.score = 0
