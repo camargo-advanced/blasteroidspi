@@ -61,7 +61,8 @@ class Asteroid(WEntity):
         # render visuals and sounds
         super().render(surface)
         if self.exploding:
-            Sound().play('bang')
+            if self.galaxy.get_entity_by_name('score').lives > 0:
+                Sound().play('bang')
             self.exploding = False
 
     def fragment(self):

@@ -1,4 +1,3 @@
-from math import sqrt
 import pygame
 from pygame.locals import *
 from pygame.math import Vector2
@@ -81,17 +80,13 @@ class WEntity(Entity):
             return abs(y_max-y_min) * self.size
 
     def point_in_circle(self, other):
-        # calculate the distance between 2 points in 2D space
-        distance = sqrt((other.position.x-self.position.x) ** 2
-                        + (other.position.y-self.position.y) ** 2)
-
         # select the largest diameter to be the reference
         diameter = self.diameter()
         if other.diameter() > diameter:
             diameter = other.diameter()
 
-        # if distance is less than the radius, we assume the objects have colided
-        if (distance <= diameter/2):
+        # if distance is less than the radius, we assume the objects have collided
+        if (self.position.distance_to(other.position) <= diameter/2):
             return True
         else:
             return False

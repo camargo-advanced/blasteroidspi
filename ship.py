@@ -1,4 +1,3 @@
-from pygame import time
 import pygame
 from blast import Blast
 from sound import Sound
@@ -11,7 +10,7 @@ WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
 ACCELERATION = 150.0  # pixels per second
 ANGULAR_SPEED = 180.0  # degrees per second
-UNSHIELD_EVENT = pygame.USEREVENT + 1
+UNSHIELD_EVENT = pygame.USEREVENT + 2
 SHIP_WIREFRAME = [
     Vector2(0.0, -5.0),  Vector2(3.0, 4.0), Vector2(1.5, 2.0),
     Vector2(-1.5, 2.0), Vector2(-3.0, 4.0)
@@ -36,7 +35,7 @@ class Ship(WEntity):
 
         self.size = SCALE_FACTOR
         self.shielded = True
-        pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
+        pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
         self.firing = False
         self.dying = False
 
@@ -51,10 +50,12 @@ class Ship(WEntity):
 
         for entity in self.galaxy.get_entities_by_name('asteroid'):
             if not self.shielded and self.point_in_circle(entity):
-                # if a rock hit me, I lose a life
+                # if a rock hit me, I lose a life but I'm shielded for 5 sec!
+                # I also need to be positioned at the center of screen stationary,
+                # and in the same angle I was born. The lives must be reduced by 1
                 self.dying = True
                 self.shielded = True
-                pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
+                pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
                 width, height = self.galaxy.size
                 self.position = Vector2(width/2, height/2)
                 self.velocity = Vector2(0.0, 0.0)
@@ -66,16 +67,19 @@ class Ship(WEntity):
         # render visuals and sounds
         super().render(surface)
         if self.accelerating == FORWARD:
-            if not Sound().busy():
+            if not Sound().busy() and self.galaxy.get_entity_by_name(
+                    'score').lives > 0:
                 Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
         if self.firing:
-            Sound().play('fire')
+            if self.galaxy.get_entity_by_name('score').lives > 0:
+                Sound().play('fire')
             self.firing = False
         if self.dying:
-            if not Sound().busy():
+            if not Sound().busy() and self.galaxy.get_entity_by_name(
+                    'score').lives > 0:
                 Sound().play('bang')
             self.dying = False
 

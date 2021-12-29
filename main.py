@@ -8,21 +8,30 @@ import pygame
 from pygame.locals import *
 from asteroid import Asteroid
 from galaxy import Galaxy
-from score import Score
+from score import RESET_GAME, Score
 from ship import Ship
 from sound import Sound
 
 COLOR_DEPTH = 8
-FPS = 50
+FPS = 1000
 NUMBER_ASTEROIDS_AT_GENESYS = 9
 
 
-def run():
-    # initialize pygame library and set screen mode
-    pygame.init()
+def reset_game(screen_size, clock):
+    # build a new galaxy with a number of asteroids, a ship and the score
+    galaxy = Galaxy(screen_size)
+    for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
+        galaxy.add_entity(Asteroid(galaxy))
+    galaxy.add_entity(Ship(galaxy))
+    galaxy.add_entity(Score(galaxy, clock))
+    return galaxy
 
-    # play the first beep to indicate the game has started!
-    Sound().play('beep')
+
+def run():
+
+    pygame.init()  # initialize pygame library and set screen mode
+
+    Sound().play('beep')  # play the first beep to indicate the game has started!
 
     # initialize the display and clock
     screen = pygame.display.set_mode(
@@ -30,19 +39,18 @@ def run():
     screen_size = pygame.display.get_window_size()
     clock = pygame.time.Clock()
 
-    # build a new galaxy with a number of asteroids, a ship and the score
-    galaxy = Galaxy(screen_size)
-    for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
-        galaxy.add_entity(Asteroid(galaxy))
-    galaxy.add_entity(Ship(galaxy))
-    galaxy.add_entity(Score(galaxy, clock))
+    galaxy = reset_game(screen_size, clock)  # build a new game
 
     # main loop: set the framerate, updates entities in the galaxy
     # render the entities on buffer and flips the buffer to screen
     done = False
     while not done:
-        for event in pygame.event.get(QUIT):  # ALT+F4 (Windows) or CMD+Q (MAC)
-            done = True
+        # ALT+F4 (Windows) or CMD+Q (MAC)
+        for event in pygame.event.get([QUIT, RESET_GAME]):
+            if event.type == QUIT:
+                done = True
+            if event.type == RESET_GAME:
+                galaxy = reset_game(screen_size, clock)  # build a new game
 
         time_passed = clock.tick(FPS)
         screen.lock()
