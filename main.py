@@ -6,7 +6,7 @@ from score import Score
 from ship import Ship
 from sound import Sound
 
-SCREEN_SIZE = (1600, 900)
+#SCREEN_SIZE = (1600, 900)
 COLOR_DEPTH = 8
 FPS = 50
 NUMBER_ASTEROIDS_AT_GENESYS = 9
@@ -20,10 +20,12 @@ def run():
     Sound().play('beep')
 
     # initialize the display
-    screen = pygame.display.set_mode(SCREEN_SIZE, 0, COLOR_DEPTH)
+    #screen = pygame.display.set_mode(SCREEN_SIZE, 0, COLOR_DEPTH)
+    screen = pygame.display.set_mode(flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)
+    screen_size = pygame.display.get_window_size()
 
     # build a new galaxy with a number of asteroids, a ship and the score
-    galaxy = Galaxy(SCREEN_SIZE)
+    galaxy = Galaxy(screen_size)
     for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
         galaxy.add_entity(Asteroid(galaxy))
     galaxy.add_entity(Ship(galaxy))
@@ -35,7 +37,7 @@ def run():
     done = False
 
     while not done:
-        for event in pygame.event.get(QUIT):
+        for event in pygame.event.get(QUIT): # CTR+Q (Windows) or CMD+Q (MAC)
             done = True
 
         time_passed = clock.tick(FPS)
