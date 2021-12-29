@@ -39,24 +39,23 @@ class Asteroid(WEntity):
     def update(self, time_passed):
         super().update(time_passed)
 
-        for entity in list(self.galaxy.entities.values()):
-            if entity.name == 'blast':
-                if self.point_in_circle(entity.position):
-                    # if a blast hit me, I need to break myself
-                    # into 2 smaller rocks !
+        for entity in self.galaxy.get_entities_by_name('blast'):
+            if self.point_in_circle(entity):
+                # if a blast hit me, I need to break myself
+                # into 2 smaller rocks !
+                self.exploding = True
+                self.times_hit += 1
+                self.galaxy.get_entity_by_name(
+                    'score').update_score(100*self.times_hit)
+                if self.times_hit < 3:
+                    self.size /= 2
+                    self.velocity *= 1.5
+                    self.velocity.rotate_ip(random()*360)
+                    self.galaxy.add_entity(self.fragment())
+                    entity.dead = True
+                else:
                     self.exploding = True
-                    self.times_hit += 1
-                    self.galaxy.get_entity_by_name(
-                        'score').update_score(100*self.times_hit)
-                    if self.times_hit < 3:
-                        self.size /= 2
-                        self.velocity *= 1.5
-                        self.velocity.rotate_ip(random()*360)
-                        self.galaxy.add_entity(self.fragment())
-                        entity.dead = True
-                    else:
-                        self.exploding = True
-                        self.dead = True
+                    self.dead = True
 
     def render(self, surface):
         # render visuals and sounds
@@ -73,36 +72,3 @@ class Asteroid(WEntity):
         fragment.size = self.size
         fragment.times_hit = self.times_hit
         return fragment
-
-    def diameter(self):
-        x_max, y_max = 0.0, 0.0
-        x_min, y_min = self.galaxy.size
-
-        for point in self.wireframe:
-            # find the max of x and y
-            if point.x > x_max:
-                x_max = point.x
-            if point.y > y_max:
-                y_max = point.y
-
-            # find the min of x and y
-            if point.x < x_min:
-                x_min = point.x
-            if point.y < y_min:
-                y_min = point.y
-
-        if abs(x_max-x_min) > abs(y_max-y_min):
-            return abs(x_max-x_min) * self.size
-        else:
-            return abs(y_max-y_min) * self.size
-
-    def point_in_circle(self, other_position):
-        # calculate the distance between 2 points in 2D space
-        distance = sqrt((other_position.x-self.position.x) ** 2
-                        + (other_position.y-self.position.y) ** 2)
-
-        # if distance is less than the radius, we assume the objects have colided
-        if (distance <= self.diameter()/2):
-            return True
-        else:
-            return False

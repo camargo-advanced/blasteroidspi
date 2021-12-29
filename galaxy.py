@@ -2,7 +2,7 @@ from utils import *
 import pygame
 from pygame.locals import *
 from wentity import FORWARD, BACKWARDS, CLOCKWISE, CCLOCKWISE
-
+from ship import UNSHIELD_EVENT
 
 class Galaxy():
 
@@ -31,6 +31,13 @@ class Galaxy():
                 return entity
         return None
 
+    def get_entities_by_name(self, entity_name):
+        entities = []
+        for entity in self.entities.values():
+            if entity.name == entity_name:
+                entities.append(entity)
+        return entities
+
     def update(self, time_passed):
         self.process_events()
         time_passed_seconds = time_passed / 1000.0
@@ -56,7 +63,7 @@ class Galaxy():
                 self.remove_entity(entity)
 
     def process_events(self):
-        for event in pygame.event.get([KEYUP, KEYDOWN]):
+        for event in pygame.event.get([KEYUP, KEYDOWN, UNSHIELD_EVENT]):
             if event.type == KEYDOWN:
                 if event.key == K_LEFT:
                     self.get_entity_by_name('ship').start_rotating(CCLOCKWISE)
@@ -74,6 +81,8 @@ class Galaxy():
                     self.get_entity_by_name('ship').stop_rotating()
                 if event.key == K_UP or event.key == K_DOWN:
                     self.get_entity_by_name('ship').stop_accelerating()
+            if event.type == UNSHIELD_EVENT:
+                self.get_entity_by_name('ship').unshield()
 
     def wrap_coordinates(self, position):
         width, height = self.size
