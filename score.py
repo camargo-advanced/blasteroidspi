@@ -14,7 +14,7 @@ class Score(Entity):
         super().__init__(galaxy, "score", GREEN)
         self.clock = clock
         self.location = Vector2(30, 5)
-        self.score = 21000000
+        self.score = 0
         self.lives = NUM_LIVES
         self.font = pygame.font.Font(os.path.join(
             'res', 'hyperspace-bold.otf'), 90)
