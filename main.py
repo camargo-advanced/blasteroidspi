@@ -13,7 +13,7 @@ from ship import Ship
 from sound import Sound
 
 COLOR_DEPTH = 8
-FPS = 1000
+FPS = 50
 NUMBER_ASTEROIDS_AT_GENESYS = 9
 
 
