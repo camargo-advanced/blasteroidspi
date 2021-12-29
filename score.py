@@ -3,6 +3,7 @@ import pygame
 from entity import Entity
 from pygame.math import Vector2
 from ship import Ship
+from sound import Sound
 from utils import *
 
 NUM_LIVES = 3
@@ -26,6 +27,7 @@ class Score(Entity):
     def update(self, time_passed):
         super().update(time_passed)
         if self.lives <= 0 and self.game_over == False:
+            Sound().play('siren')
             pygame.time.set_timer(RESET_GAME, 5000, 1)
             self.game_over = True
 
