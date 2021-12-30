@@ -55,7 +55,7 @@ def run():
         if len(galaxy.get_entities_by_name('asteroid')) == 0:
             galaxy.get_entity_by_name('score').difficulty *= 1.21
             galaxy.get_entity_by_name('score').update_lives(1)
-            for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
+            for i in range(NUMBER_ASTEROIDS):
                 galaxy.add_entity(Asteroid(galaxy))
 
         time_passed = clock.tick(FPS)
