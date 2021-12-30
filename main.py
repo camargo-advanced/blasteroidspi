@@ -14,7 +14,7 @@ from sound import Sound
 
 COLOR_DEPTH = 8
 FPS = 50
-NUMBER_ASTEROIDS_AT_GENESYS = 1
+NUMBER_ASTEROIDS = 9
 
 
 def reset_game(screen_size, clock):
@@ -22,7 +22,7 @@ def reset_game(screen_size, clock):
     galaxy = Galaxy(screen_size)
     galaxy.add_entity(Score(galaxy, clock))
     galaxy.add_entity(Ship(galaxy))
-    for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
+    for i in range(NUMBER_ASTEROIDS):
         galaxy.add_entity(Asteroid(galaxy))
     return galaxy
 
