@@ -14,16 +14,16 @@ from sound import Sound
 
 COLOR_DEPTH = 8
 FPS = 50
-NUMBER_ASTEROIDS_AT_GENESYS = 9
+NUMBER_ASTEROIDS_AT_GENESYS = 1
 
 
 def reset_game(screen_size, clock):
     # build a new galaxy with a number of asteroids, a ship and the score
     galaxy = Galaxy(screen_size)
+    galaxy.add_entity(Score(galaxy, clock))
+    galaxy.add_entity(Ship(galaxy))
     for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
         galaxy.add_entity(Asteroid(galaxy))
-    galaxy.add_entity(Ship(galaxy))
-    galaxy.add_entity(Score(galaxy, clock))
     return galaxy
 
 
@@ -51,6 +51,12 @@ def run():
                 done = True
             if event.type == RESET_GAME:
                 galaxy = reset_game(screen_size, clock)  # build a new game
+
+        if len(galaxy.get_entities_by_name('asteroid')) == 0:
+            galaxy.get_entity_by_name('score').difficulty *= 1.21
+            galaxy.get_entity_by_name('score').update_lives(1)
+            for i in range(NUMBER_ASTEROIDS_AT_GENESYS):
+                galaxy.add_entity(Asteroid(galaxy))
 
         time_passed = clock.tick(FPS)
         screen.lock()

@@ -28,7 +28,8 @@ class Asteroid(WEntity):
         self.position = Vector2(random()*width, random()*height)
 
         # linear velocity in pixels per second at random angle
-        self.velocity = Vector2(0.0, SPEED).rotate(random() * 360.0)
+        self.velocity = Vector2(
+            0.0, SPEED * galaxy.get_entity_by_name('score').difficulty).rotate(random() * 360.0)
 
         self.angular_speed = ANGULAR_SPEED
         self.rotating = CLOCKWISE

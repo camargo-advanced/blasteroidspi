@@ -22,6 +22,7 @@ class Score(Entity):
         self.font_fps = pygame.font.Font(os.path.join(
             'res', 'hyperspace-bold.otf'), 20)
         self.ship = Ship(galaxy)  # ship to render the number of lives
+        self.difficulty = 1.0
         self.game_over = False
 
     def update(self, time_passed):
