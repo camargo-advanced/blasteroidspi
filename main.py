@@ -41,11 +41,10 @@ def run():
 
     galaxy = reset_game(screen_size, clock)  # build a new game
 
-    # main loop: set the framerate, updates entities in the galaxy
-    # render the entities on buffer and flips the buffer to screen
+    # main game loop!
     done = False
     while not done:
-        # ALT+F4 (Windows) or CMD+Q (MAC)
+        # Press ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
         for event in pygame.event.get([QUIT, RESET_GAME]):
             if event.type == QUIT:
                 done = True
@@ -53,11 +52,15 @@ def run():
                 galaxy = reset_game(screen_size, clock)  # build a new game
 
         if len(galaxy.get_entities_by_name('asteroid')) == 0:
+            # if you run out of asteroids, it changes phases, adding a life
+            # but increasing the asteroids speed by 21%
             galaxy.get_entity_by_name('score').difficulty *= 1.21
             galaxy.get_entity_by_name('score').update_lives(1)
             for i in range(NUMBER_ASTEROIDS):
                 galaxy.add_entity(Asteroid(galaxy))
 
+        # set the framerate, updates entities in the galaxy
+        # render the entities on buffer and flips the buffer to screen
         time_passed = clock.tick(FPS)
         screen.lock()
         galaxy.update(time_passed)
