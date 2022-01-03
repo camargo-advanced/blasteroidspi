@@ -36,6 +36,10 @@ class Sound():
                 'thrust': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'thrust.wav')),
                     'channel': reserved_channel_1
+                },
+                'beep-countdown': {
+                    'sound_key': pygame.mixer.Sound(os.path.join('res', 'beep-countdown.wav')),
+                    'channel': None
                 }
             }
         return cls._instance

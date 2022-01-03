@@ -3,7 +3,6 @@ from sound import Sound
 from wentity import WEntity, CLOCKWISE, CLOCKWISE
 from random import random
 from pygame.math import Vector2
-from math import sqrt
 from utils import *
 
 WIDTH = 3  # line thickness
@@ -39,6 +38,9 @@ class Asteroid(WEntity):
 
     def update(self, time_passed):
         super().update(time_passed)
+
+        if self.galaxy.get_entity_by_name('score').game_status != GAME_RUNNING:
+            return
 
         for entity in self.galaxy.get_entities_by_name('blast'):
             if self.collide(entity):

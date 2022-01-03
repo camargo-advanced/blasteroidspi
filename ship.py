@@ -10,7 +10,6 @@ WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
 ACCELERATION = 150.0  # pixels per second
 ANGULAR_SPEED = 180.0  # degrees per second
-UNSHIELD_EVENT = pygame.USEREVENT + 2
 SHIP_WIREFRAME = [
     Vector2(0.0, -5.0),  Vector2(3.0, 4.0), Vector2(1.5, 2.0),
     Vector2(-1.5, 2.0), Vector2(-3.0, 4.0)
@@ -35,12 +34,15 @@ class Ship(WEntity):
 
         self.size = SCALE_FACTOR
         self.shielded = True
-        pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
         self.firing = False
         self.dying = False
 
     def update(self, time_passed):
         super().update(time_passed)
+
+        if self.galaxy.get_entity_by_name('score').game_status != GAME_RUNNING:
+            return
+
         self.process_events()
 
         if self.firing:
@@ -56,7 +58,7 @@ class Ship(WEntity):
                 # I also need to be positioned at the center of screen stationary,
                 # and in the same angle I was born. The lives must be reduced by 1
                 self.dying = True
-                self.shielded = True
+                self.shield()
                 pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
                 width, height = self.galaxy.size
                 self.position = Vector2(width/2, height/2)
@@ -67,23 +69,27 @@ class Ship(WEntity):
     def render(self, surface):
         # render visuals and sounds
         super().render(surface)
+
         if self.accelerating == FORWARD:
-            if not self.galaxy.get_entity_by_name('score').game_over:
+            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
                 Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
+
         if self.firing:
-            if not self.galaxy.get_entity_by_name('score').game_over:
+            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
                 Sound().play('fire')
             self.firing = False
+
         if self.dying:
-            if not self.galaxy.get_entity_by_name('score').game_over:
+            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
                 Sound().play('bang')
             self.dying = False
 
     def process_events(self):
         for event in pygame.event.get([KEYUP, KEYDOWN, UNSHIELD_EVENT]):
+
             if event.type == KEYDOWN:
                 if event.key == K_LEFT:
                     self.start_rotating(CCLOCKWISE)
@@ -108,3 +114,9 @@ class Ship(WEntity):
 
     def unshield(self):
         self.shielded = False
+        self.galaxy.get_entity_by_name('score').update_ship_shielded(False)
+
+    def shield(self):
+        self.shielded = True
+        print("*", self.galaxy.get_entity_by_name('score'))
+        self.galaxy.get_entity_by_name('score').update_ship_shielded(True)

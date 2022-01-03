@@ -7,37 +7,38 @@ from sound import Sound
 from utils import *
 
 NUM_LIVES = 3
-RESET_GAME = pygame.USEREVENT + 1
 
 
 class Score(Entity):
-    def __init__(self, galaxy, clock):
+    def __init__(self, galaxy):
         super().__init__(galaxy, "score", GREEN)
-        self.clock = clock
         self.location = Vector2(30, 5)
         self.score = 0
         self.lives = NUM_LIVES
+        self.fps = 0
         self.font = pygame.font.Font(os.path.join(
             'res', 'hyperspace-bold.otf'), 90)
         self.font_fps = pygame.font.Font(os.path.join(
             'res', 'hyperspace-bold.otf'), 20)
         self.ship = Ship(galaxy)  # ship to render the number of lives
         self.difficulty = 1.0
-        self.game_over = False
+        self.ship_shielded = True
+        self.game_status = GAME_DEMO_MODE
 
     def update(self, time_passed):
         super().update(time_passed)
-        if self.lives <= 0 and self.game_over == False:
+        if self.lives <= 0 and self.game_status == GAME_RUNNING:
             Sound().play('siren')
-            pygame.time.set_timer(RESET_GAME, 5000, 1)
-            self.game_over = True
+            # self.galaxy.add_entity(CountDown(self.galaxy))
+            pygame.time.set_timer(RESTART_GAME, 3000, 1)
+            self.game_status = GAME_DEMO_MODE
 
     def render(self, surface):
         super().render(surface)
 
         # render score
         text = format(self.score, ',')
-        if self.galaxy.get_entity_by_name('ship').shielded:
+        if self.ship_shielded:
             text = text + " *"
         text_surface = self.font.render(
             text, False, self.color)
@@ -49,7 +50,7 @@ class Score(Entity):
             self.ship.render(surface)
 
         # render FPS
-        text = 'FPS = ' + format(self.clock.get_fps(), '.2f')
+        text = 'FPS = ' + format(self.fps, '.2f')
         text_surface = self.font_fps.render(
             text, False, self.color)
         width, height = self.galaxy.size
@@ -70,3 +71,15 @@ class Score(Entity):
 
     def update_lives(self, variation):
         self.lives += variation
+
+    def update_fps(self, fps):
+        self.fps = fps
+
+    def update_ship_shielded(self, shielded):
+        self.ship_shielded = shielded
+
+    def increase_difficulty_by(self, multiplier):
+        self.difficulty *= multiplier
+
+    def update_game_status(self, status):
+        self.game_status = status
