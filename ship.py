@@ -49,7 +49,7 @@ class Ship(WEntity):
             self.galaxy.add_entity(blast)
 
         for entity in self.galaxy.get_entities_by_name('asteroid'):
-            if not self.shielded and self.point_in_circle(entity):
+            if not self.shielded and self.collide(entity):
                 # if a rock hit me, I lose a life but I'm shielded for 5 sec!
                 # I also need to be positioned at the center of screen stationary,
                 # and in the same angle I was born. The lives must be reduced by 1

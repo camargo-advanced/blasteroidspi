@@ -79,7 +79,7 @@ class WEntity(Entity):
         else:
             return abs(y_max-y_min) * self.size
 
-    def point_in_circle(self, other):
+    def collide(self, other):
         # select the largest diameter to be the reference
         diameter = self.diameter()
         if other.diameter() > diameter:
