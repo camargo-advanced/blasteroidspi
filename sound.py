@@ -43,15 +43,7 @@ class Sound():
     def play(self, sound_key):
         sound = self._sounds[sound_key]['sound']
         channel = self._sounds[sound_key]['channel']
-        if channel != None:
+        if channel != None and not channel.get_busy():
             channel.play(sound)
-        else:
+        elif channel == None:
             sound.play()
-
-    def busy(self, sound_key):
-        channel = self._sounds[sound_key]['channel']
-        if channel != None:
-            return channel.get_busy()
-        else:
-            return pygame.mixer.get_busy()
-            

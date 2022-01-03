@@ -67,8 +67,7 @@ class Ship(WEntity):
         # render visuals and sounds
         super().render(surface)
         if self.accelerating == FORWARD:
-            if not Sound().busy('thrust') and self.galaxy.get_entity_by_name(
-                    'score').lives > 0:
+            if self.galaxy.get_entity_by_name('score').lives > 0:
                 Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
@@ -78,8 +77,7 @@ class Ship(WEntity):
                 Sound().play('fire')
             self.firing = False
         if self.dying:
-            if not Sound().busy('bang') and self.galaxy.get_entity_by_name(
-                    'score').lives > 0:
+            if self.galaxy.get_entity_by_name('score').lives > 0:
                 Sound().play('bang')
             self.dying = False
 
