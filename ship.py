@@ -1,10 +1,10 @@
 import pygame
 from blast import Blast
 from sound import Sound
-from wentity import WEntity
+from wentity import CCLOCKWISE, CLOCKWISE, FORWARD, WEntity
 from pygame.math import Vector2
 from utils import *
-from wentity import FORWARD
+from pygame.locals import *
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
@@ -41,6 +41,8 @@ class Ship(WEntity):
 
     def update(self, time_passed):
         super().update(time_passed)
+        self.process_events()
+
         if self.firing:
             # build a new blast, set its position to the ship's,
             # set its velocity vector to ship's orientation
@@ -60,26 +62,46 @@ class Ship(WEntity):
                 self.position = Vector2(width/2, height/2)
                 self.velocity = Vector2(0.0, 0.0)
                 self.angle = 0.0
-                self.galaxy.get_entity_by_name(
-                    'score').update_lives(-1)
+                self.galaxy.get_entity_by_name('score').update_lives(-1)
 
     def render(self, surface):
         # render visuals and sounds
         super().render(surface)
         if self.accelerating == FORWARD:
-            if self.galaxy.get_entity_by_name('score').lives > 0:
+            if not self.galaxy.get_entity_by_name('score').game_over:
                 Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
         if self.firing:
-            if self.galaxy.get_entity_by_name('score').lives > 0:
+            if not self.galaxy.get_entity_by_name('score').game_over:
                 Sound().play('fire')
             self.firing = False
         if self.dying:
-            if self.galaxy.get_entity_by_name('score').lives > 0:
+            if not self.galaxy.get_entity_by_name('score').game_over:
                 Sound().play('bang')
             self.dying = False
+
+    def process_events(self):
+        for event in pygame.event.get([KEYUP, KEYDOWN, UNSHIELD_EVENT]):
+            if event.type == KEYDOWN:
+                if event.key == K_LEFT:
+                    self.start_rotating(CCLOCKWISE)
+                if event.key == K_RIGHT:
+                    self.start_rotating(CLOCKWISE)
+                if event.key == K_UP:
+                    self.start_accelerating(FORWARD)
+                if event.key == K_SPACE:
+                    self.fire()
+
+            if event.type == KEYUP:
+                if event.key == K_LEFT or event.key == K_RIGHT:
+                    self.stop_rotating()
+                if event.key == K_UP:
+                    self.stop_accelerating()
+
+            if event.type == UNSHIELD_EVENT:
+                self.unshield()
 
     def fire(self):
         self.firing = True

@@ -18,30 +18,30 @@ class Sound():
 
             cls._sounds = {
                 'bang': {
-                    'sound': pygame.mixer.Sound(os.path.join('res', 'bang.wav')),
+                    'sound_key': pygame.mixer.Sound(os.path.join('res', 'bang.wav')),
                     'channel': reserved_channel_0
                 },
                 'beep': {
-                    'sound': pygame.mixer.Sound(os.path.join('res', 'beep.wav')),
+                    'sound_key': pygame.mixer.Sound(os.path.join('res', 'beep.wav')),
                     'channel': None
                 },
                 'fire': {
-                    'sound': pygame.mixer.Sound(os.path.join('res', 'fire.wav')),
+                    'sound_key': pygame.mixer.Sound(os.path.join('res', 'fire.wav')),
                     'channel': None
                 },
                 'siren': {
-                    'sound': pygame.mixer.Sound(os.path.join('res', 'siren.wav')),
+                    'sound_key': pygame.mixer.Sound(os.path.join('res', 'siren.wav')),
                     'channel': None
                 },
                 'thrust': {
-                    'sound': pygame.mixer.Sound(os.path.join('res', 'thrust.wav')),
+                    'sound_key': pygame.mixer.Sound(os.path.join('res', 'thrust.wav')),
                     'channel': reserved_channel_1
                 }
             }
         return cls._instance
 
     def play(self, sound_key):
-        sound = self._sounds[sound_key]['sound']
+        sound = self._sounds[sound_key]['sound_key']
         channel = self._sounds[sound_key]['channel']
         if channel != None and not channel.get_busy():
             channel.play(sound)

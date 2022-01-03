@@ -1,9 +1,3 @@
-# TO-DO:
-#       - Trabalhar com múltiplos canais de aidio, para resolver o problema de
-#         não sair o som de explosao quando uma rocha bate na nave, caso a
-#         nave esteja com o thrust ativado (pois o som dele é que ocupa o canal).
-#
-
 import pygame
 from pygame.locals import *
 from asteroid import Asteroid
@@ -31,7 +25,7 @@ def run():
 
     pygame.init()  # initialize pygame library and set screen mode
     Sound().play('beep')  # play the first beep to indicate the game has started!
-    pygame.display.set_caption("Asteroids arcade game") # set window caption
+    pygame.display.set_caption("Asteroids arcade game")  # set window caption
 
     # initialize the display and clock
     screen = pygame.display.set_mode(
