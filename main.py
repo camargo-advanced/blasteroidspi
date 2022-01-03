@@ -30,8 +30,8 @@ def reset_game(screen_size, clock):
 def run():
 
     pygame.init()  # initialize pygame library and set screen mode
-
     Sound().play('beep')  # play the first beep to indicate the game has started!
+    pygame.display.set_caption("Asteroids arcade game") # set window caption
 
     # initialize the display and clock
     screen = pygame.display.set_mode(

@@ -3,6 +3,7 @@ from pygame.math import Vector2
 from utils import *
 
 WIDTH = 3  # line thickness
+SCALE_FACTOR = 3
 SPEED = 500.0  # pixels per second
 BLAST_WIREFRAME = [
     Vector2(0.5, 0.0),  Vector2(-0.5, -1.0),
@@ -15,3 +16,4 @@ class Blast(WEntity):
         super().__init__(galaxy, "blast", GREEN, BLAST_WIREFRAME, WIDTH)
         self.position = position
         self.velocity = Vector2(0.0, -SPEED).rotate(angle)
+        self.size = SCALE_FACTOR
