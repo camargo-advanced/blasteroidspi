@@ -41,7 +41,7 @@ class Asteroid(WEntity):
         super().update(time_passed)
 
         for entity in self.galaxy.get_entities_by_name('blast'):
-            if self.point_in_circle(entity):
+            if self.collide(entity):
                 # if a blast hit me, I need to break myself
                 # into 2 smaller rocks !
                 self.exploding = True

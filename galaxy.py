@@ -1,7 +1,7 @@
 from utils import *
 import pygame
 from pygame.locals import *
-from wentity import FORWARD, BACKWARDS, CLOCKWISE, CCLOCKWISE
+from wentity import FORWARD, CLOCKWISE, CCLOCKWISE
 from ship import UNSHIELD_EVENT
 
 class Galaxy():
@@ -71,9 +71,6 @@ class Galaxy():
                     self.get_entity_by_name('ship').start_rotating(CLOCKWISE)
                 if event.key == K_UP:
                     self.get_entity_by_name('ship').start_accelerating(FORWARD)
-                if event.key == K_DOWN:
-                    self.get_entity_by_name(
-                        'ship').start_accelerating(BACKWARDS)
                 if event.key == K_SPACE:
                     self.get_entity_by_name('ship').fire()
             

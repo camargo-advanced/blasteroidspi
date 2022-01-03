@@ -6,7 +6,6 @@ from entity import Entity
 CLOCKWISE = 1  # rotating clockwise
 CCLOCKWISE = -1  # rotating counter clockwise
 FORWARD = 1  # accelerating forward
-BACKWARDS = -1  # accelerating backwards
 
 
 class WEntity(Entity):
@@ -35,8 +34,6 @@ class WEntity(Entity):
         acceleration = Vector2(0.0, 0.0)
         if self.accelerating == FORWARD:
             acceleration = Vector2(0.0, -self.acceleration).rotate(self.angle)
-        elif self.accelerating == BACKWARDS:
-            acceleration = Vector2(0.0, self.acceleration).rotate(self.angle)
 
         # update position
         self.position += self.velocity * time_passed + \
