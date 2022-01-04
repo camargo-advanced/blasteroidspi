@@ -2,11 +2,7 @@ import pygame
 from pygame.locals import *
 from pygame.math import Vector2
 from entity import Entity
-
-CLOCKWISE = 1  # rotating clockwise
-CCLOCKWISE = -1  # rotating counter clockwise
-FORWARD = 1  # accelerating forward
-
+from utils import *
 
 class WEntity(Entity):
 

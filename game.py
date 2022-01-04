@@ -50,9 +50,10 @@ class Game():
                     pygame.time.set_timer(NEW_PHASE, 6000, 1)
 
                 if event.type == NEW_PHASE:
-                    self.score.update_game_status(GAME_RUNNING)
                     # clears events prior to running the game
-                    pygame.event.get(KEYUP, KEYDOWN)
+                    for event in pygame.event.get([KEYUP, KEYDOWN]):
+                        pass
+                    self.score.update_game_status(GAME_RUNNING)
                     pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
 
             if len(self.galaxy.get_entities_by_name('asteroid')) == 0:

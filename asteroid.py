@@ -1,6 +1,5 @@
-from ship import ANGULAR_SPEED
 from sound import Sound
-from wentity import WEntity, CLOCKWISE, CLOCKWISE
+from wentity import WEntity
 from random import random
 from pygame.math import Vector2
 from utils import *

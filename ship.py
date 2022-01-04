@@ -1,10 +1,11 @@
 import pygame
+from pygame.locals import *
 from blast import Blast
 from sound import Sound
-from wentity import CCLOCKWISE, CLOCKWISE, FORWARD, WEntity
+from wentity import WEntity
 from pygame.math import Vector2
 from utils import *
-from pygame.locals import *
+
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0

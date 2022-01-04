@@ -16,6 +16,11 @@ NEW_PHASE = pygame.USEREVENT + 2
 UNSHIELD_EVENT = pygame.USEREVENT + 3
 COUNT_DOWN_EVENT = pygame.USEREVENT + 4
 
-# game status
+# game statuses
 GAME_DEMO_MODE = 1
 GAME_RUNNING = 2
+
+# entity movements
+CLOCKWISE = 1  # rotating clockwise
+CCLOCKWISE = -1  # rotating counter clockwise
+FORWARD = 1  # accelerating forward
