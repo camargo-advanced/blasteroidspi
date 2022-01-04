@@ -92,19 +92,20 @@ class Ship(WEntity):
         for event in pygame.event.get([KEYUP, KEYDOWN, UNSHIELD_EVENT]):
 
             if event.type == KEYDOWN:
-                if event.key == K_LEFT:
+                if event.key == K_LEFT or event.key == K_a:
                     self.start_rotating(CCLOCKWISE)
-                if event.key == K_RIGHT:
+                if event.key == K_RIGHT or event.key == K_d:
                     self.start_rotating(CLOCKWISE)
-                if event.key == K_UP:
+                if event.key == K_UP or event.key == K_w:
                     self.start_accelerating(FORWARD)
                 if event.key == K_SPACE:
                     self.fire()
 
             if event.type == KEYUP:
-                if event.key == K_LEFT or event.key == K_RIGHT:
+                if event.key == K_LEFT or event.key == K_a or \
+                        event.key == K_RIGHT or event.key == K_d:
                     self.stop_rotating()
-                if event.key == K_UP:
+                if event.key == K_UP or event.key == K_w:
                     self.stop_accelerating()
 
             if event.type == UNSHIELD_EVENT:
