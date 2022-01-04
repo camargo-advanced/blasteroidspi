@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# MACOS filesystem infomration
+# Mac OS X folder information file
 .DS_Store
