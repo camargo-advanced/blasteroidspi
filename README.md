@@ -5,6 +5,8 @@ Inspiration came from the book [Head First C: A Brain-Friendly Guide](https://ww
   
 In addition, I also took valuable lessons in game implementation from the book [Beginning Python Games Development With PyGame](https://www.amazon.com/Beginning-Python-Games-Development-Second/dp/1484209710/ref=sr_1_1?crid=2RZA8MBSIDFR7&keywords=beginning+python+game+development%27&qid=1641307247&sprefix=beginning+python), which I recommend.  
 
+It's also very important to mention the valuable lessons in game programming and the math involved that I gained through the [Code-It-Yourself video! Asteroids (Simple C++ and Maths!)](https://www.youtube.com/watch?v=QgDR8LrRZhk), plus other videos by the same author that I recommend.  
+
 To run, just clone the repository, enter the directory and run:  
 `python3 game.py`  
   
