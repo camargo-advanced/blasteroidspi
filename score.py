@@ -6,7 +6,8 @@ from ship import Ship
 from sound import Sound
 from utils import *
 
-NUM_LIVES = 3
+INITIAL_LIVES = 3
+MAX_LIVES = 4
 
 
 class Score(Entity):
@@ -15,7 +16,7 @@ class Score(Entity):
         self.location_score = Vector2(30, 5)
         self.text_game_over = 'GAME OVER'
         self.score = 0
-        self.lives = NUM_LIVES
+        self.lives = INITIAL_LIVES
         self.fps = 0.0
         self.font = pygame.font.Font(
             os.path.join('res', 'hyperspace-bold.otf'), 90)
@@ -73,6 +74,10 @@ class Score(Entity):
 
     def update_lives(self, variation):
         self.lives += variation
+        if self.lives < 0:
+            self.lives = 0
+        elif self.lives > MAX_LIVES:
+            self.lives = MAX_LIVES
 
     def update_fps(self, fps):
         self.fps = fps

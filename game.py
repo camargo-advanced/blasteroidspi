@@ -9,7 +9,7 @@ from utils import *
 
 COLOR_DEPTH = 8
 FPS = 50
-NUMBER_ASTEROIDS = 5
+NUMBER_ASTEROIDS = 7
 
 
 class Game():
