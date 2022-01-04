@@ -9,7 +9,7 @@ If you are interested in collaborating, please feel free to suggest the inclusio
 
 The links to the books are below:
 
-<https://www.amazon.com/Head-First-C-Brain-Friendly-Guide/dp/1449399916/ref=sr_1_1?crid=3PXLMYX4NOXK9&keywords=head+first+c&qid=1641307105&sprefix=head+first+c%2Caps% 2C204&sr=8-1>
+<https://www.amazon.com/Head-First-C-Brain-Friendly-Guide/dp/1449399916/ref=sr_1_1?crid=3PXLMYX4NOXK9&keywords=head+first+c&qid=1641307105&sprefix=head+first+c%2Caps%>
 
-<https://www.amazon.com/Beginning-Python-Games-Development-Second/dp/1484209710/ref=sr_1_1?crid=2RZA8MBSIDFR7&keywords=beginning+python+game+development%27&qid=1641307247&sprefix=beginning+python developme%2Caps%2C283&sr=8-1>
+<https://www.amazon.com/Beginning-Python-Games-Development-Second/dp/1484209710/ref=sr_1_1?crid=2RZA8MBSIDFR7&keywords=beginning+python+game+development%27&qid=1641307247&sprefix=beginning+python>
 
