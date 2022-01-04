@@ -21,8 +21,7 @@ class Game():
         self.screen = pygame.display.set_mode(
             flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)  # initialize the display
         self.screen_size = pygame.display.get_window_size()
-        pygame.event.set_allowed(  # only queue the folowing events
-            [QUIT, RESTART_GAME, NEW_PHASE, COUNT_DOWN_EVENT, KEYUP, KEYDOWN, UNSHIELD_EVENT])
+        self.screen_rect = self.screen.get_rect()
         pygame.event.post(pygame.event.Event(RESTART_GAME))
 
     def run(self):
@@ -39,7 +38,7 @@ class Game():
                 if event.type == RESTART_GAME:
                     # build a new galaxy with a number of asteroids, a ship and the score,
                     # add a count down to queue game start - new phase
-                    self.galaxy = Galaxy(self.screen_size)
+                    self.galaxy = Galaxy(self.screen_rect)
                     self.score = Score(self.galaxy)
                     self.galaxy.add_entity(self.score)
                     self.ship = Ship(self.galaxy)

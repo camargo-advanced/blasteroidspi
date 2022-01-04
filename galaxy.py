@@ -3,8 +3,9 @@ from utils import *
 
 class Galaxy():
 
-    def __init__(self, size):
-        self.size = size
+    def __init__(self, rect):
+        self.rect = rect
+        self.size = (rect.width, rect.height)
         self.entities = {}
         self.entity_id = 0
 
