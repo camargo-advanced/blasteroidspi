@@ -8,4 +8,6 @@ In addition, I also took valuable lessons in game implementation from the book [
 To run, just clone the repository, enter the directory and run:  
 `python3 game.py`  
   
-If you are interested in collaborating, please feel free to suggest the inclusion of new features and improvements by github. All suggestions will be analyzed and considered for a future release.
+If you are interested in collaborating, please feel free to suggest the inclusion of new features and improvements by github. All suggestions will be analyzed and considered for a future release.  
+  
+![screenshot](screenshot.png)

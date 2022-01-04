@@ -39,9 +39,9 @@ class Score(Entity):
 
         # render score
         if self.ship_shielded:
-            text = "{} *".format(self.score)
+            text = "{0:,} *".format(self.score)
         else:
-            text = "{}".format(self.score)
+            text = "{0:,}".format(self.score)
         text_surface = self.font.render(text, False, self.color)
         surface.blit(text_surface, self.location_score)
 
