@@ -49,7 +49,7 @@ class Asteroid(WEntity):
                 self.exploding = True
                 self.times_hit += 1
                 self.galaxy.get_entity_by_name(
-                    'score').update_score(100*self.times_hit)
+                    'score').update_score(+100*self.times_hit)
                 if self.times_hit < 3:
                     self.size /= 2
                     self.velocity *= 1.5

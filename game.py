@@ -9,7 +9,7 @@ from utils import *
 
 COLOR_DEPTH = 8
 FPS = 50
-NUMBER_ASTEROIDS = 9
+NUMBER_ASTEROIDS = 5
 
 
 class Game():
@@ -18,25 +18,28 @@ class Game():
         pygame.display.set_caption(
             "Asteroids arcade game")  # set window caption
         self.clock = pygame.time.Clock()  # the time starts
+        self.screen = pygame.display.set_mode(
+            flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)  # initialize the display
+        self.screen_size = pygame.display.get_window_size()
+        pygame.event.set_allowed(  # only queue the folowing events
+            [QUIT, RESTART_GAME, NEW_PHASE, COUNT_DOWN_EVENT, KEYUP, KEYDOWN, UNSHIELD_EVENT])
+        pygame.event.post(pygame.event.Event(RESTART_GAME))
 
     def run(self):
-        screen = pygame.display.set_mode(
-            flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)  # initialize the display
-        screen_size = pygame.display.get_window_size()
-
-        pygame.event.post(pygame.event.Event(RESTART_GAME))
 
         # game main loop!
         done = False
         while not done:
             # Press ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
             for event in pygame.event.get([QUIT, RESTART_GAME, NEW_PHASE]):
+
                 if event.type == QUIT:
                     done = True
+
                 if event.type == RESTART_GAME:
                     # build a new galaxy with a number of asteroids, a ship and the score,
-                    # add a count down to start the game 
-                    self.galaxy = Galaxy(screen_size)
+                    # add a count down to queue game start - new phase
+                    self.galaxy = Galaxy(self.screen_size)
                     self.score = Score(self.galaxy)
                     self.galaxy.add_entity(self.score)
                     self.ship = Ship(self.galaxy)
@@ -45,15 +48,17 @@ class Game():
                         self.galaxy.add_entity(Asteroid(self.galaxy))
                     self.galaxy.add_entity(CountDown(self.galaxy))
                     pygame.time.set_timer(NEW_PHASE, 6000, 1)
+
                 if event.type == NEW_PHASE:
-                    pygame.event.clear()
                     self.score.update_game_status(GAME_RUNNING)
+                    # clears events prior to running the game
+                    pygame.event.get(KEYUP, KEYDOWN)
                     pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
 
             if len(self.galaxy.get_entities_by_name('asteroid')) == 0:
                 # if you run out of asteroids, it changes phases, adding a life
-                # but increasing the asteroids speed by 21%
-                self.score.increase_difficulty_by(1.21)
+                # but increasing the asteroids speed
+                self.score.increase_difficulty_by(1.11)
                 self.score.update_lives(+1)
                 for i in range(NUMBER_ASTEROIDS):
                     self.galaxy.add_entity(Asteroid(self.galaxy))
@@ -62,10 +67,10 @@ class Game():
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
             self.score.update_fps(self.clock.get_fps())
-            screen.lock()
+            self.screen.lock()
             self.galaxy.update(time_passed)
-            screen.unlock()
-            self.galaxy.render(screen)
+            self.screen.unlock()
+            self.galaxy.render(self.screen)
             self.galaxy.cleanup()
 
             pygame.display.flip()
@@ -74,4 +79,4 @@ class Game():
 
 
 if __name__ == "__main__":
-    Game().run()
+    Game().run()  # start the game !
