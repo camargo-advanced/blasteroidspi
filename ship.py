@@ -25,9 +25,9 @@ class Ship(WEntity):
     def __init__(self, galaxy):
         super().__init__(galaxy, "ship", GREEN, SHIP_WIREFRAME, WIDTH)
 
-        # entity initial position
-        width, height = self.galaxy.size
-        self.position = Vector2(width/2, height/2)
+        # ship initial position
+        self.position = Vector2(self.galaxy.rect.width/2,
+                                self.galaxy.rect.height/2)
 
         # linear acceleration and angular speed
         self.acceleration = ACCELERATION
@@ -61,8 +61,8 @@ class Ship(WEntity):
                 self.dying = True
                 self.shield()
                 pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
-                width, height = self.galaxy.size
-                self.position = Vector2(width/2, height/2)
+                self.position = Vector2(self.galaxy.rect.width/2,
+                                self.galaxy.rect.height/2)
                 self.velocity = Vector2(0.0, 0.0)
                 self.angle = 0.0
                 self.galaxy.get_entity_by_name('score').update_lives(-1)
@@ -120,5 +120,4 @@ class Ship(WEntity):
 
     def shield(self):
         self.shielded = True
-        print("*", self.galaxy.get_entity_by_name('score'))
         self.galaxy.get_entity_by_name('score').update_ship_shielded(True)

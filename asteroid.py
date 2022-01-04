@@ -22,8 +22,8 @@ class Asteroid(WEntity):
         super().__init__(galaxy, "asteroid", WHITE, ASTEROID_WIREFRAME, WIDTH)
 
         # entity initial position is random
-        width, height = self.galaxy.size
-        self.position = Vector2(random()*width, random()*height)
+        self.position = Vector2(
+            random()*self.galaxy.rect.width, random()*self.galaxy.rect.height)
 
         # linear velocity in pixels per second at random angle
         self.velocity = Vector2(
@@ -62,6 +62,7 @@ class Asteroid(WEntity):
     def render(self, surface):
         # render visuals and sounds
         super().render(surface)
+        
         if self.exploding:
             if self.galaxy.get_entity_by_name('score').lives > 0:
                 Sound().play('bang')

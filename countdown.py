@@ -1,6 +1,5 @@
 import os
 from entity import Entity
-from pygame.math import Vector2
 from sound import Sound
 from utils import *
 
@@ -8,6 +7,7 @@ from utils import *
 class CountDown(Entity):
     def __init__(self, galaxy):
         super().__init__(galaxy, "count_down", GREEN)
+        
         self.font = pygame.font.Font(os.path.join('res', 'hyperspace-bold.otf'), 90)
         self.count_down = 5
         self.tick = False
@@ -16,6 +16,7 @@ class CountDown(Entity):
 
     def update(self, time_passed):
         super().update(time_passed)
+
         self.process_events()
         if self.tick:
             self.count_down -= 1

@@ -4,6 +4,7 @@ from pygame.math import Vector2
 from entity import Entity
 from utils import *
 
+
 class WEntity(Entity):
 
     def __init__(self, galaxy, name, color, wireframe, width):
@@ -20,6 +21,7 @@ class WEntity(Entity):
 
     def update(self, time_passed):
         super().update(time_passed)
+
         # update entity angle
         if self.rotating == CLOCKWISE:
             self.angle += self.angular_speed * time_passed
@@ -40,6 +42,7 @@ class WEntity(Entity):
 
     def render(self, surface):
         super().render(surface)
+
         # rotate, scale, translate,
         draw = []
         for point in self.wireframe:
@@ -47,12 +50,12 @@ class WEntity(Entity):
                 Vector2(point).rotate(self.angle) *
                 self.size + self.position
             )
-        # and draw.
+        # and draw
         pygame.draw.lines(surface, self.color, True, draw, self.width)
 
     def diameter(self):
         x_max, y_max = 0.0, 0.0
-        x_min, y_min = self.galaxy.size
+        x_min, y_min = self.galaxy.rect.width, self.galaxy.rect.height
 
         for point in self.wireframe:
             # find the max of x and y

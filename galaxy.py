@@ -5,7 +5,6 @@ class Galaxy():
 
     def __init__(self, rect):
         self.rect = rect
-        self.size = (rect.width, rect.height)
         self.entities = {}
         self.entity_id = 0
 
@@ -60,7 +59,7 @@ class Galaxy():
                 self.remove_entity(entity)
 
     def wrap_coordinates(self, position):
-        width, height = self.size
+        width, height = self.rect.width, self.rect.height
         if position.x < 0.0:
             position.x += width
         if position.x >= width:
@@ -71,7 +70,7 @@ class Galaxy():
             position.y -= height
 
     def in_screen_space(self, position):
-        width, height = self.size
+        width, height = self.rect.width, self.rect.height
         if (position.x < 0.0):
             return False
         if (position.x >= width):

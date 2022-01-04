@@ -12,12 +12,13 @@ NUM_LIVES = 3
 class Score(Entity):
     def __init__(self, galaxy):
         super().__init__(galaxy, "score", GREEN)
-        self.location = Vector2(30, 5)
+        self.location_score = Vector2(30, 5)
+        self.text_game_over = 'GAME OVER'
         self.score = 0
         self.lives = NUM_LIVES
-        self.fps = 0
-        self.font = pygame.font.Font(os.path.join(
-            'res', 'hyperspace-bold.otf'), 90)
+        self.fps = 0.0
+        self.font = pygame.font.Font(
+            os.path.join('res', 'hyperspace-bold.otf'), 90)
         self.font_fps = pygame.font.Font(os.path.join(
             'res', 'hyperspace-bold.otf'), 20)
         self.ship = Ship(galaxy)  # ship to render the number of lives
@@ -27,9 +28,9 @@ class Score(Entity):
 
     def update(self, time_passed):
         super().update(time_passed)
+
         if self.lives <= 0 and self.game_status == GAME_RUNNING:
             Sound().play('siren')
-            # self.galaxy.add_entity(CountDown(self.galaxy))
             pygame.time.set_timer(RESTART_GAME, 3000, 1)
             self.game_status = GAME_DEMO_MODE
 
@@ -37,12 +38,12 @@ class Score(Entity):
         super().render(surface)
 
         # render score
-        text = format(self.score, ',')
         if self.ship_shielded:
-            text = text + " *"
-        text_surface = self.font.render(
-            text, False, self.color)
-        surface.blit(text_surface, self.location)
+            text = "{} *".format(self.score)
+        else:
+            text = "{}".format(self.score)
+        text_surface = self.font.render(text, False, self.color)
+        surface.blit(text_surface, self.location_score)
 
         # render number of lives
         for x in range(50, (self.lives*50)+1, 50):
@@ -50,20 +51,21 @@ class Score(Entity):
             self.ship.render(surface)
 
         # render FPS
-        text = 'FPS = ' + format(self.fps, '.2f')
-        text_surface = self.font_fps.render(
-            text, False, self.color)
-        width, height = self.galaxy.size
-        surface.blit(text_surface, (width-150, 20))
+        text = "FPS = {0:.1f}".format(self.fps)
+        text_surface = self.font_fps.render(text, False, self.color)
+        text_rect = text_surface.get_rect()
+        text_rect.centerx = self.galaxy.rect.width - 100
+        text_rect.y = 20
+        surface.blit(text_surface, text_rect)
 
         # render game over !
         if self.lives <= 0:
-            text = 'GAME OVER'
             text_surface = self.font.render(
-                text, False, self.color)
-            width, height = self.galaxy.size
-            surface.blit(text_surface, (width/2-text_surface.get_rect().width /
-                                        2, (height/2-text_surface.get_rect().height/2)-200))
+                self.text_game_over, False, self.color)
+            text_rect = text_surface.get_rect()
+            text_rect.centerx = self.galaxy.rect.centerx
+            text_rect.centery = self.galaxy.rect.centery - 200
+            surface.blit(text_surface, text_rect)
 
     def update_score(self, variation):
         if self.lives > 0:
