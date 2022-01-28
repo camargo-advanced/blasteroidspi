@@ -10,7 +10,7 @@ class Entity():
         self.color = color
         self.dead = False
 
-    def update(self, time_passed):
+    def update(self, time_passed, event_list):
         pass
 
     def render(self, surface):

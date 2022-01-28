@@ -19,8 +19,8 @@ class WEntity(Entity):
         self.rotating = None
         self.accelerating = None
 
-    def update(self, time_passed):
-        super().update(time_passed)
+    def update(self, time_passed, event_list):
+        super().update(time_passed, event_list)
 
         # update entity angle
         if self.rotating == CLOCKWISE:

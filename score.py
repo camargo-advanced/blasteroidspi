@@ -27,8 +27,8 @@ class Score(Entity):
         self.ship_shielded = True
         self.game_status = GAME_DEMO_MODE
 
-    def update(self, time_passed):
-        super().update(time_passed)
+    def update(self, time_passed, event_list):
+        super().update(time_passed, event_list)
 
         if self.lives <= 0 and self.game_status == GAME_RUNNING:
             Sound().play('siren')

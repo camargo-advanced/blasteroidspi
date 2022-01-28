@@ -28,10 +28,11 @@ class Game():
         # game main loop!
         done = False
         while not done:
-            # Press ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
-            for event in pygame.event.get([QUIT, RESTART_GAME, NEW_PHASE]):
 
-                if event.type == QUIT:
+            # Press Q (all systems) or ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
+            event_list = pygame.event.get()
+            for event in event_list:
+                if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
 
                 if event.type == RESTART_GAME:
@@ -66,7 +67,7 @@ class Game():
             time_passed = self.clock.tick(FPS)
             self.score.update_fps(self.clock.get_fps())
             self.screen.lock()
-            self.galaxy.update(time_passed)
+            self.galaxy.update(time_passed, event_list)
             self.screen.unlock()
             self.galaxy.render(self.screen)
             self.galaxy.cleanup()

@@ -38,13 +38,13 @@ class Ship(WEntity):
         self.firing = False
         self.dying = False
 
-    def update(self, time_passed):
-        super().update(time_passed)
+    def update(self, time_passed, event_list):
+        super().update(time_passed, event_list)
 
         if self.galaxy.get_entity_by_name('score').game_status != GAME_RUNNING:
             return
 
-        self.process_events()
+        self.process_events(event_list)
 
         if self.firing:
             # build a new blast, set its position to the ship's,
@@ -62,7 +62,7 @@ class Ship(WEntity):
                 self.shield()
                 pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
                 self.position = Vector2(self.galaxy.rect.width/2,
-                                self.galaxy.rect.height/2)
+                                        self.galaxy.rect.height/2)
                 self.velocity = Vector2(0.0, 0.0)
                 self.angle = 0.0
                 self.galaxy.get_entity_by_name('score').update_lives(-1)
@@ -88,8 +88,8 @@ class Ship(WEntity):
                 Sound().play('bang')
             self.dying = False
 
-    def process_events(self):
-        for event in pygame.event.get([KEYUP, KEYDOWN, UNSHIELD_EVENT]):
+    def process_events(self, event_list):
+        for event in event_list:
 
             if event.type == KEYDOWN:
                 if event.key == K_LEFT or event.key == K_a:
