@@ -4,7 +4,7 @@ from utils import *
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 3
-SPEED = 500.0  # pixels per second
+SPEED = 700.0  # pixels per second
 BLAST_WIREFRAME = [
     Vector2(0.5, 0.0),  Vector2(-0.5, -1.0),
     Vector2(0.5, -2.0), Vector2(-0.5, -3.0)

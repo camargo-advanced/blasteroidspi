@@ -9,7 +9,8 @@ from utils import *
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
-ACCELERATION = 150.0  # pixels per second
+ACCELERATION = 250.0  # pixels per second
+DAMPING = 0.57  # some damping
 ANGULAR_SPEED = 180.0  # degrees per second
 SHIP_WIREFRAME = [
     Vector2(0.0, -5.0),  Vector2(3.0, 4.0), Vector2(1.5, 2.0),
@@ -31,6 +32,7 @@ class Ship(WEntity):
 
         # linear acceleration and angular speed
         self.acceleration = ACCELERATION
+        self.damping = DAMPING
         self.angular_speed = ANGULAR_SPEED
 
         self.size = SCALE_FACTOR
