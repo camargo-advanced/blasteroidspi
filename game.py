@@ -3,7 +3,7 @@ from pygame.locals import *
 from utils import *
 
 COLOR_DEPTH = 8
-FPS = 10
+FPS = 50
 
 
 class Game():
