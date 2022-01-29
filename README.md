@@ -1,7 +1,5 @@
 # blasteroidspi
-Asteroids game in python
-
-Implementação do jogo Asteroids em Python com Pygame.
+Implementação do jogo Asteroids em Python a biblioteca Pygame.
 
 Esse código é o resultado da vídeo aula número 3.
 
