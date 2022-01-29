@@ -34,7 +34,7 @@ class Game():
             print(self.clock.get_fps())
 
             self.screen.lock()
-            self.screen.fill(BLACK)
+            self.screen.fill(YELLOW)
             self.screen.unlock()
 
             pygame.display.flip()
