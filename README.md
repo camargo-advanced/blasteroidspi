@@ -1,7 +1,6 @@
 # blasteroidspi
 Implementação do jogo Asteroids em Python a biblioteca Pygame.
 
-Esse código é o resultado da vídeo aula número 3. Acesse essa vídeo aula [aqui](https://youtu.be/m5dJr6RJ8Ic)
+Esse código é o resultado da aula número 3 da playlist "Vamos progrmar Asteroides" no Youtube. Acesse essa aula [aqui](https://youtu.be/n2wgVq7E9To)
 
-A versão final do jogo encontra-se [aqui](https://github.com/camargo-advanced/blasteroidspi)
-
+A versão final do código do jogo encontra-se [aqui](https://github.com/camargo-advanced/blasteroidspi)
