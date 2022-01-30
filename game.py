@@ -28,8 +28,7 @@ class Game():
                 if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
 
-            # set the framerate, updates entities in the galaxy
-            # render the entities on buffer and flips the buffer to screen
+            # set the framerate and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
             print(self.clock.get_fps())
 
