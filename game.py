@@ -17,7 +17,6 @@ class Game():
         pygame.init()  # initialize pygame library and set screen mode
         self.screen = pygame.display.set_mode(
             flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)  # initialize the display
-        self.screen_size = pygame.display.get_window_size()
         self.screen_rect = self.screen.get_rect()
         pygame.display.set_caption(
             "Asteroids arcade game")  # set window caption
@@ -48,9 +47,6 @@ class Game():
                     pygame.time.set_timer(NEW_PHASE, 6000, 1)
 
                 if event.type == NEW_PHASE:
-                    # clears events prior to running the game
-                    for event in pygame.event.get([KEYUP, KEYDOWN]):
-                        pass
                     self.score.update_game_status(GAME_RUNNING)
                     pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
 
