@@ -62,9 +62,7 @@ class Game():
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
             self.score.update_fps(self.clock.get_fps())
-            self.screen.lock()
             self.galaxy.update(time_passed, event_list)
-            self.screen.unlock()
             self.galaxy.render(self.screen)
             self.galaxy.cleanup()
 

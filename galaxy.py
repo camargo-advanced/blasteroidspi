@@ -37,7 +37,7 @@ class Galaxy():
 
     def update(self, time_passed, event_list):
         time_passed_seconds = time_passed / 1000.0
-        for entity in list(self.entities.values()):
+        for entity in self.entities.values():
             entity.update(time_passed_seconds, event_list)
             if not self.in_screen_space(entity.position):
                 # entities require authorization to leave the galaxy,
