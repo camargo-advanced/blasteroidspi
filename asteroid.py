@@ -28,5 +28,4 @@ class Asteroid(WEntity):
         super().update(time_passed, event_list)
 
     def render(self, surface):
-        # render visuals
         super().render(surface)

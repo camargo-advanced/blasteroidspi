@@ -39,10 +39,7 @@ class Game():
             # set the framerate, updates entities in the galaxy
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
-            print(self.clock.get_fps())
-            self.screen.lock()
             self.galaxy.update(time_passed, event_list)
-            self.screen.unlock()
             self.galaxy.render(self.screen)
 
             pygame.display.flip()
