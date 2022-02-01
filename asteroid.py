@@ -3,13 +3,14 @@ from random import random
 from pygame.math import Vector2
 from utils import *
 
-WIDTH = 3  # line thickness
+
+WIDTH = 3
 SCALE_FACTOR = 3
 ASTEROID_WIREFRAME = [
-    Vector2(-20.0, 20.0),  Vector2(-25.0, 5.0), Vector2(-25.0, -10.0),
+    Vector2(-20.0, 20.0), Vector2(-25.0, 5.0), Vector2(-25.0, -10.0),
     Vector2(-5.0, -10.0), Vector2(-10.0, -20.0), Vector2(5.0, -20.0),
-    Vector2(20.0, -10.0),  Vector2(20.0, -5.0), Vector2(0.0, 0.0),
-    Vector2(20.0, 10.0), Vector2(10.0, 20.0),   Vector2(0.0, 15.0)
+    Vector2(20.0, -10.0), Vector2(20.0, -5.0), Vector2(0.0, 0.0),
+    Vector2(20.0, 10.0), Vector2(10.0, 20.0), Vector2(0.0, 15.0)
 ]
 
 

@@ -20,12 +20,10 @@ class WEntity(Entity):
     def render(self, surface):
         super().render(surface)
 
-        # rotate, scale, translate,
         draw = []
         for point in self.wireframe:
             draw.append(
-                Vector2(point).rotate(self.angle) *
-                self.size + self.position
+                Vector2(point).rotate(self.angle) * self.size + self.position
             )
-        # and draw
+
         pygame.draw.lines(surface, self.color, True, draw, self.width)

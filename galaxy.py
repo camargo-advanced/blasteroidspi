@@ -16,7 +16,7 @@ class Galaxy():
     def update(self, time_passed, event_list):
         time_passed_seconds = time_passed / 1000.0
         for entity in self.entities.values():
-            entity.update(time_passed_seconds, event_list)
+            entity.update(time_passed, event_list)
 
     def render(self, surface):
         surface.fill(BLACK)

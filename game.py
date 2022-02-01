@@ -21,7 +21,6 @@ class Game():
 
     def run(self):
 
-        # build a new galaxy with a number of asteroids
         self.galaxy = Galaxy(self.screen_rect)
         for i in range(NUMBER_ASTEROIDS):
             self.galaxy.add_entity(Asteroid(self.galaxy))
