@@ -11,11 +11,15 @@ class WEntity(Entity):
         super().__init__(galaxy, name, color)
         self.wireframe = wireframe
         self.width = width
+        self.velocity = Vector2(0.0, 0.0)
         self.angle = 0.0
         self.size = 1
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
+
+        # update position
+        self.position += self.velocity * time_passed 
 
     def render(self, surface):
         super().render(surface)
