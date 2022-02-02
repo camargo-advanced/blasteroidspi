@@ -60,9 +60,9 @@ class Asteroid(WEntity):
                     self.dead = True
 
     def render(self, surface):
-        # render visuals and sounds
         super().render(surface)
-
+        
+        # render visuals and sounds
         if self.exploding:
             if self.galaxy.get_entity_by_name('score').lives > 0:
                 Sound().play('bang')
