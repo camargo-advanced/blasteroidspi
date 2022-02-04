@@ -23,11 +23,12 @@ class WEntity(Entity):
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
 
-        # update entity angle
+        # update entity rotation angle
+        angle_increment = self.angular_speed * time_passed
         if self.rotating == CLOCKWISE:
-            self.angle += self.angular_speed * time_passed
+            self.angle += angle_increment
         elif self.rotating == CCLOCKWISE:
-            self.angle -= self.angular_speed * time_passed
+            self.angle -= angle_increment
 
         # generate a acceleration vector towards current entity angle
         acceleration = Vector2(0.0, 0.0)
