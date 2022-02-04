@@ -21,11 +21,11 @@ class WEntity(Entity):
         super().update(time_passed, event_list)
 
         # update entity rotation angle
-        increment = self.angular_speed * time_passed
+        angle_increment = self.angular_speed * time_passed
         if self.rotating == CLOCKWISE:
-            self.angle += increment
+            self.angle += angle_increment
         elif self.rotating == CCLOCKWISE:
-            self.angle -= increment
+            self.angle -= angle_increment
 
         # update position
         self.position += self.velocity * time_passed 
