@@ -12,11 +12,20 @@ class WEntity(Entity):
         self.wireframe = wireframe
         self.width = width
         self.velocity = Vector2(0.0, 0.0)
+        self.angular_speed = 0.0
         self.angle = 0.0
         self.size = 1
+        self.rotating = None
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
+
+        # update entity rotation angle
+        increment = self.angular_speed * time_passed
+        if self.rotating == CLOCKWISE:
+            self.angle += increment
+        elif self.rotating == CCLOCKWISE:
+            self.angle -= increment
 
         # update position
         self.position += self.velocity * time_passed 

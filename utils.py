@@ -7,3 +7,7 @@ RED = (255, 0, 0)
 MAGENTA = (255, 0, 255)
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
+
+# entity movements
+CLOCKWISE = 1  # rotating clockwise
+CCLOCKWISE = -1  # rotating counter clockwise

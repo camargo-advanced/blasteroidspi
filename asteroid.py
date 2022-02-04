@@ -7,6 +7,7 @@ from utils import *
 WIDTH = 3
 SCALE_FACTOR = 3
 SPEED = 90.0  # pixels per second
+ANGULAR_SPEED = 17.19  # degrees per second
 
 ASTEROID_WIREFRAME = [
     Vector2(-20.0, 20.0), Vector2(-25.0, 5.0), Vector2(-25.0, -10.0),
@@ -28,6 +29,8 @@ class Asteroid(WEntity):
         # linear velocity in pixels per second at random angle
         self.velocity = Vector2(0.0, SPEED).rotate(random() * 360.0)
 
+        self.angular_speed = ANGULAR_SPEED
+        self.rotating = CLOCKWISE
         self.size = SCALE_FACTOR
 
     def update(self, time_passed, event_list):
