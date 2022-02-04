@@ -16,12 +16,6 @@ class Galaxy():
     def remove_entity(self, entity):
         del self.entities[entity.id]
 
-    def get_entity(self, entity_id):
-        if entity_id in self.entities:
-            return self.entities[entity_id]
-        else:
-            return None
-
     def get_entity_by_name(self, entity_name):
         for entity in self.entities.values():
             if entity.name == entity_name:
