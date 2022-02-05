@@ -40,12 +40,12 @@ class Galaxy():
 
     def in_screen_space(self, position):
         width, height = self.rect.width, self.rect.height
-        if (position.x < 0.0):
+        if position.x < 0.0:
             return False
-        if (position.x >= width):
+        if position.x >= width:
             return False
-        if (position.y < 0.0):
+        if position.y < 0.0:
             return False
-        if (position.y >= height):
+        if position.y >= height:
             return False
         return True
