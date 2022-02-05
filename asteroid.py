@@ -7,7 +7,7 @@ from utils import *
 WIDTH = 3
 SCALE_FACTOR = 3
 SPEED = 90.0  # pixels per second
-ANGULAR_SPEED = 17.19  # degrees per second
+ANGULAR_SPEED = 21.0  # degrees per second
 
 ASTEROID_WIREFRAME = [
     Vector2(-20.0, 20.0), Vector2(-25.0, 5.0), Vector2(-25.0, -10.0),
