@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from asteroid import Asteroid
 from galaxy import Galaxy
+from ship import Ship
 from utils import *
 
 COLOR_DEPTH = 8
@@ -22,6 +23,7 @@ class Game():
     def run(self):
 
         self.galaxy = Galaxy(self.screen_rect)
+        self.galaxy.add_entity(Ship(self.galaxy))
         for i in range(NUMBER_ASTEROIDS):
             self.galaxy.add_entity(Asteroid(self.galaxy))
 
