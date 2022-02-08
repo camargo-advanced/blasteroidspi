@@ -3,7 +3,6 @@ from wentity import WEntity
 from pygame.math import Vector2
 from utils import *
 
-
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
 ANGULAR_SPEED = 180.0  # degrees per second
@@ -45,4 +44,3 @@ class Ship(WEntity):
                 if event.key == K_LEFT or event.key == K_a or \
                         event.key == K_RIGHT or event.key == K_d:
                     self.stop_rotating()
-
