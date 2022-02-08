@@ -40,3 +40,9 @@ class WEntity(Entity):
             )
 
         pygame.draw.lines(surface, self.color, True, draw, self.width)
+
+    def start_rotating(self, direction):
+        self.rotating = direction
+
+    def stop_rotating(self):
+        self.rotating = None
