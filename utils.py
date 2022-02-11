@@ -11,3 +11,4 @@ WHITE = (255, 255, 255)
 # entity movements
 CLOCKWISE = 1  # rotating clockwise
 CCLOCKWISE = -1  # rotating counter clockwise
+FORWARD = 1  # accelerating forward

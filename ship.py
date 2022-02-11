@@ -5,6 +5,7 @@ from utils import *
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
+ACCELERATION = 250.0  # pixels per second
 ANGULAR_SPEED = 180.0  # degrees per second
 SHIP_WIREFRAME = [
     Vector2(0.0, -5.0),  Vector2(3.0, 4.0), Vector2(1.5, 2.0),
@@ -20,6 +21,7 @@ class Ship(WEntity):
         # ship initial position
         self.position = Vector2(self.galaxy.rect.width/2,
                                 self.galaxy.rect.height/2)
+        self.acceleration = ACCELERATION
         self.angular_speed = ANGULAR_SPEED
         self.size = SCALE_FACTOR
 
@@ -39,8 +41,12 @@ class Ship(WEntity):
                     self.start_rotating(CCLOCKWISE)
                 if event.key == K_RIGHT or event.key == K_d:
                     self.start_rotating(CLOCKWISE)
+                if event.key == K_UP or event.key == K_w:
+                    self.start_accelerating(FORWARD)
 
             if event.type == KEYUP:
                 if event.key == K_LEFT or event.key == K_a or \
                         event.key == K_RIGHT or event.key == K_d:
                     self.stop_rotating()
+                if event.key == K_UP or event.key == K_w:
+                    self.stop_accelerating()

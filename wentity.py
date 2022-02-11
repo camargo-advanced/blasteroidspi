@@ -16,6 +16,7 @@ class WEntity(Entity):
         self.angle = 0.0
         self.size = 1
         self.rotating = None
+        self.accelerating = None
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -27,9 +28,17 @@ class WEntity(Entity):
         elif self.rotating == CCLOCKWISE:
             self.angle -= angle_increment
 
+        # generate a acceleration vector towards current entity angle
+        acceleration = Vector2(0.0, 0.0)
+        if self.accelerating == FORWARD:
+            acceleration = Vector2(self.acceleration, 0.0).rotate(self.angle-90)
+
         # update position
         self.position += self.velocity * time_passed 
 
+        # update velocity vector
+        self.velocity += acceleration * time_passed
+    
     def render(self, surface):
         super().render(surface)
 
@@ -46,3 +55,9 @@ class WEntity(Entity):
 
     def stop_rotating(self):
         self.rotating = None
+
+    def start_accelerating(self, direction):
+        self.accelerating = direction
+
+    def stop_accelerating(self):
+        self.accelerating = None
