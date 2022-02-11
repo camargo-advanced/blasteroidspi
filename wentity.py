@@ -12,6 +12,7 @@ class WEntity(Entity):
         self.wireframe = wireframe
         self.width = width
         self.velocity = Vector2(0.0, 0.0)
+        self.acceleration = 0.0
         self.angular_speed = 0.0
         self.angle = 0.0
         self.size = 1
@@ -31,7 +32,7 @@ class WEntity(Entity):
         # generate a acceleration vector towards current entity angle
         acceleration = Vector2(0.0, 0.0)
         if self.accelerating == FORWARD:
-            acceleration = Vector2(self.acceleration, 0.0).rotate(self.angle-90)
+            acceleration = Vector2(0.0, -self.acceleration).rotate(self.angle)
 
         # update position
         self.position += self.velocity * time_passed 
