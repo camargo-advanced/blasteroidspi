@@ -6,13 +6,13 @@ from utils import *
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
 ACCELERATION = 250.0  # pixels per second
-DAMPING = 0.57  #@@@@@ some damping
+DAMPING = 0.57  # some damping
 ANGULAR_SPEED = 180.0  # degrees per second
 SHIP_WIREFRAME = [
     Vector2(0.0, -5.0),  Vector2(3.0, 4.0), Vector2(1.5, 2.0),
     Vector2(-1.5, 2.0), Vector2(-3.0, 4.0)
 ]
-THRUST_WIREFRAME = [ #@@@@@
+THRUST_WIREFRAME = [
     Vector2(1.0, 2.0), Vector2(0.0, 5.0), Vector2(-1.0, 2.0)
 ]
 
@@ -25,7 +25,7 @@ class Ship(WEntity):
         self.position = Vector2(self.galaxy.rect.width/2,
                                 self.galaxy.rect.height/2)
         self.acceleration = ACCELERATION
-        self.damping = DAMPING #@@@@@
+        self.damping = DAMPING 
         self.angular_speed = ANGULAR_SPEED
         self.size = SCALE_FACTOR
 
@@ -37,7 +37,7 @@ class Ship(WEntity):
     def render(self, surface):
         super().render(surface)
 
-        if self.accelerating == FORWARD: #@@@@@
+        if self.accelerating == FORWARD:
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME

@@ -13,7 +13,7 @@ class WEntity(Entity):
         self.width = width
         self.velocity = Vector2(0.0, 0.0)
         self.acceleration = 0.0
-        self.damping = 1 #@@@@@ no damping
+        self.damping = 1 # no damping
         self.angular_speed = 0.0
         self.angle = 0.0
         self.size = 1
@@ -40,7 +40,7 @@ class WEntity(Entity):
 
         # update velocity vector
         self.velocity += acceleration * time_passed
-        self.velocity *= self.damping ** time_passed #@@@@@
+        self.velocity *= self.damping ** time_passed 
 
     def render(self, surface):
         super().render(surface)
