@@ -1,5 +1,4 @@
 from pygame.locals import *
-# <<<<<-----
 from blast import Blast 
 from wentity import WEntity
 from pygame.math import Vector2
@@ -30,14 +29,12 @@ class Ship(WEntity):
         self.damping = DAMPING 
         self.angular_speed = ANGULAR_SPEED
         self.size = SCALE_FACTOR
-# <<<<<-----
         self.firing = False 
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
 
         self.process_events(event_list)
-# <<<<<-----
         if self.firing: 
             # build a new blast, set its position to the ship's,
             # set its velocity vector to ship's orientation
@@ -64,7 +61,6 @@ class Ship(WEntity):
                     self.start_rotating(CLOCKWISE)
                 if event.key == K_UP or event.key == K_w:
                     self.start_accelerating(FORWARD)
-# <<<<<-----
                 if event.key == K_SPACE:
                     self.fire()
 
@@ -75,6 +71,5 @@ class Ship(WEntity):
                 if event.key == K_UP or event.key == K_w:
                     self.stop_accelerating()
 
-# <<<<<-----
     def fire(self): 
         self.firing = True
