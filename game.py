@@ -42,6 +42,7 @@ class Game():
             time_passed = self.clock.tick(FPS)
             self.galaxy.update(time_passed, event_list)
             self.galaxy.render(self.screen)
+            self.galaxy.cleanup() # <<<<<-----
 
             pygame.display.flip()
 

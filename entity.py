@@ -8,6 +8,7 @@ class Entity():
         self.name = name
         self.color = color
         self.position = Vector2(0.0, 0.0)
+        self.dead = False # <<<<<-----
 
     def update(self, time_passed, event_list):
         pass
