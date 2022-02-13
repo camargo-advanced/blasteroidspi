@@ -37,8 +37,8 @@ class Ship(WEntity):
         super().update(time_passed, event_list)
 
         self.process_events(event_list)
-
-        if self.firing: # <<<<<-----
+# <<<<<-----
+        if self.firing: 
             # build a new blast, set its position to the ship's,
             # set its velocity vector to ship's orientation
             # and then add it to the galaxy
