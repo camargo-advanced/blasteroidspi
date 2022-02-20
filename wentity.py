@@ -84,7 +84,7 @@ class WEntity(Entity):
             diameter = other.diameter()
 
         # if distance is less than the radius, we assume the objects have collided
-        if (self.position.distance_to(other.position) <= diameter/2):
+        if self.position.distance_to(other.position) <= diameter/2:
             return True
         else:
             return False
