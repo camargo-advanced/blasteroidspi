@@ -35,8 +35,8 @@ class Asteroid(WEntity):
         self.times_hit = 0
         self.exploding = False
 
-    def update(self, time_passed):
-        super().update(time_passed)
+    def update(self, time_passed, event_list):
+        super().update(time_passed, event_list)
 
         if self.galaxy.get_entity_by_name('score').game_status != GAME_RUNNING:
             return
@@ -60,9 +60,9 @@ class Asteroid(WEntity):
                     self.dead = True
 
     def render(self, surface):
-        # render visuals and sounds
         super().render(surface)
         
+        # render visuals and sounds
         if self.exploding:
             if self.galaxy.get_entity_by_name('score').lives > 0:
                 Sound().play('bang')

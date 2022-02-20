@@ -17,7 +17,6 @@ class Game():
         pygame.init()  # initialize pygame library and set screen mode
         self.screen = pygame.display.set_mode(
             flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)  # initialize the display
-        self.screen_size = pygame.display.get_window_size()
         self.screen_rect = self.screen.get_rect()
         pygame.display.set_caption(
             "Asteroids arcade game")  # set window caption
@@ -28,10 +27,11 @@ class Game():
         # game main loop!
         done = False
         while not done:
-            # Press ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
-            for event in pygame.event.get([QUIT, RESTART_GAME, NEW_PHASE]):
 
-                if event.type == QUIT:
+            # Press Q (all systems) or ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
+            event_list = pygame.event.get()
+            for event in event_list:
+                if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
 
                 if event.type == RESTART_GAME:
@@ -47,9 +47,6 @@ class Game():
                     pygame.time.set_timer(NEW_PHASE, 6000, 1)
 
                 if event.type == NEW_PHASE:
-                    # clears events prior to running the game
-                    for event in pygame.event.get([KEYUP, KEYDOWN]):
-                        pass
                     self.score.update_game_status(GAME_RUNNING)
                     pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
 
@@ -65,9 +62,7 @@ class Game():
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
             self.score.update_fps(self.clock.get_fps())
-            self.screen.lock()
-            self.galaxy.update(time_passed)
-            self.screen.unlock()
+            self.galaxy.update(time_passed, event_list)
             self.galaxy.render(self.screen)
             self.galaxy.cleanup()
 

@@ -16,12 +16,6 @@ class Galaxy():
     def remove_entity(self, entity):
         del self.entities[entity.id]
 
-    def get_entity(self, entity_id):
-        if entity_id in self.entities:
-            return self.entities[entity_id]
-        else:
-            return None
-
     def get_entity_by_name(self, entity_name):
         for entity in self.entities.values():
             if entity.name == entity_name:
@@ -35,10 +29,10 @@ class Galaxy():
                 entities.append(entity)
         return entities
 
-    def update(self, time_passed):
+    def update(self, time_passed, event_list):
         time_passed_seconds = time_passed / 1000.0
         for entity in list(self.entities.values()):
-            entity.update(time_passed_seconds)
+            entity.update(time_passed_seconds, event_list)
             if not self.in_screen_space(entity.position):
                 # entities require authorization to leave the galaxy,
                 # thus we must keep entities inside it !
@@ -71,12 +65,12 @@ class Galaxy():
 
     def in_screen_space(self, position):
         width, height = self.rect.width, self.rect.height
-        if (position.x < 0.0):
+        if position.x < 0.0:
             return False
-        if (position.x >= width):
+        if position.x >= width:
             return False
-        if (position.y < 0.0):
+        if position.y < 0.0:
             return False
-        if (position.y >= height):
+        if position.y >= height:
             return False
         return True

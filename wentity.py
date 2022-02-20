@@ -13,20 +13,22 @@ class WEntity(Entity):
         self.width = width
         self.velocity = Vector2(0.0, 0.0)
         self.acceleration = 0.0
+        self.damping = 1 # no damping
         self.angular_speed = 0.0
         self.angle = 0.0
         self.size = 1
         self.rotating = None
         self.accelerating = None
 
-    def update(self, time_passed):
-        super().update(time_passed)
+    def update(self, time_passed, event_list):
+        super().update(time_passed, event_list)
 
-        # update entity angle
+        # update entity rotation angle
+        angle_increment = self.angular_speed * time_passed
         if self.rotating == CLOCKWISE:
-            self.angle += self.angular_speed * time_passed
+            self.angle += angle_increment
         elif self.rotating == CCLOCKWISE:
-            self.angle -= self.angular_speed * time_passed
+            self.angle -= angle_increment
 
         # generate a acceleration vector towards current entity angle
         acceleration = Vector2(0.0, 0.0)
@@ -34,11 +36,11 @@ class WEntity(Entity):
             acceleration = Vector2(0.0, -self.acceleration).rotate(self.angle)
 
         # update position
-        self.position += self.velocity * time_passed + \
-            (acceleration * time_passed * time_passed) / 2
+        self.position += self.velocity * time_passed 
 
         # update velocity vector
         self.velocity += acceleration * time_passed
+        self.velocity *= self.damping ** time_passed
 
     def render(self, surface):
         super().render(surface)
@@ -82,7 +84,7 @@ class WEntity(Entity):
             diameter = other.diameter()
 
         # if distance is less than the radius, we assume the objects have collided
-        if (self.position.distance_to(other.position) <= diameter/2):
+        if self.position.distance_to(other.position) <= diameter/2:
             return True
         else:
             return False

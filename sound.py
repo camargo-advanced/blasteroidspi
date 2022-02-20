@@ -11,34 +11,36 @@ class Sound():
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(Sound, cls).__new__(cls)
-
-            reserved_channel_0 = pygame.mixer.Channel(0)
-            reserved_channel_1 = pygame.mixer.Channel(1)
-
             cls._sounds = {
                 'bang': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'bang.wav')),
-                    'channel': reserved_channel_0
+                    'channel': pygame.mixer.Channel(0),
+                    'overlap': True
                 },
                 'beep': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'beep.wav')),
-                    'channel': None
+                    'channel': pygame.mixer.Channel(2),
+                    'overlap': True
                 },
                 'fire': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'fire.wav')),
-                    'channel': None
+                    'channel': pygame.mixer.Channel(2),
+                    'overlap': True
                 },
                 'siren': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'siren.wav')),
-                    'channel': None
+                    'channel': pygame.mixer.Channel(2),
+                    'overlap': True
                 },
                 'thrust': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'thrust.wav')),
-                    'channel': reserved_channel_1
+                    'channel': pygame.mixer.Channel(1),
+                    'overlap': False
                 },
                 'beep-countdown': {
                     'sound_key': pygame.mixer.Sound(os.path.join('res', 'beep-countdown.wav')),
-                    'channel': None
+                    'channel': pygame.mixer.Channel(2),
+                    'overlap': True
                 }
             }
         return cls._instance
@@ -46,7 +48,7 @@ class Sound():
     def play(self, sound_key):
         sound = self._sounds[sound_key]['sound_key']
         channel = self._sounds[sound_key]['channel']
-        if channel != None and not channel.get_busy():
+        overlap = self._sounds[sound_key]['overlap']
+        if overlap or not overlap and not channel.get_busy():
             channel.play(sound)
-        elif channel == None:
-            sound.play()
+        
