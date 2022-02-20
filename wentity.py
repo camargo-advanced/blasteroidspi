@@ -52,7 +52,7 @@ class WEntity(Entity):
             )
 
         pygame.draw.lines(surface, self.color, True, draw, self.width)
-
+#--------->
     def diameter(self):
         x_max, y_max = 0.0, 0.0
         x_min, y_min = self.galaxy.rect.width, self.galaxy.rect.height
@@ -74,7 +74,7 @@ class WEntity(Entity):
             return abs(x_max-x_min) * self.size
         else:
             return abs(y_max-y_min) * self.size
-
+#--------->
     def collide(self, other):
         # select the largest diameter to be the reference
         diameter = self.diameter()
