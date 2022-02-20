@@ -42,7 +42,16 @@ class Ship(WEntity):
             blast = Blast(self.galaxy, Vector2(self.position), self.angle)
             self.galaxy.add_entity(blast)
             self.firing = False
-            
+
+        for entity in self.galaxy.get_entities_by_name('asteroid'):
+            if self.collide(entity):
+                # if a rock hit me, I need to be positioned at the center of screen stationary,
+                # and in the same angle I was born. 
+                self.position = Vector2(self.galaxy.rect.width/2,
+                                        self.galaxy.rect.height/2)
+                self.velocity = Vector2(0.0, 0.0)
+                self.angle = 0.0
+
     def render(self, surface):
         super().render(surface)
 

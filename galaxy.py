@@ -13,6 +13,13 @@ class Galaxy():
         entity.id = self.entity_id
         self.entity_id += 1
 
+    def get_entities_by_name(self, entity_name):
+        entities = []
+        for entity in self.entities.values():
+            if entity.name == entity_name:
+                entities.append(entity)
+        return entities
+
     def remove_entity(self, entity): 
         del self.entities[entity.id]
 

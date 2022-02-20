@@ -53,6 +53,40 @@ class WEntity(Entity):
 
         pygame.draw.lines(surface, self.color, True, draw, self.width)
 
+    def diameter(self):
+        x_max, y_max = 0.0, 0.0
+        x_min, y_min = self.galaxy.rect.width, self.galaxy.rect.height
+
+        for point in self.wireframe:
+            # find the max of x and y
+            if point.x > x_max:
+                x_max = point.x
+            if point.y > y_max:
+                y_max = point.y
+
+            # find the min of x and y
+            if point.x < x_min:
+                x_min = point.x
+            if point.y < y_min:
+                y_min = point.y
+
+        if abs(x_max-x_min) > abs(y_max-y_min):
+            return abs(x_max-x_min) * self.size
+        else:
+            return abs(y_max-y_min) * self.size
+
+    def collide(self, other):
+        # select the largest diameter to be the reference
+        diameter = self.diameter()
+        if other.diameter() > diameter:
+            diameter = other.diameter()
+
+        # if distance is less than the radius, we assume the objects have collided
+        if (self.position.distance_to(other.position) <= diameter/2):
+            return True
+        else:
+            return False
+
     def start_rotating(self, direction):
         self.rotating = direction
 
