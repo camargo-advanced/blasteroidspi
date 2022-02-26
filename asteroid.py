@@ -32,7 +32,6 @@ class Asteroid(WEntity):
         self.size = SCALE_FACTOR
 # >>>>>
         self.times_hit = 0
-        self.exploding = False
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -42,7 +41,6 @@ class Asteroid(WEntity):
             if self.collide(entity):
                 # if a blast hit me, I need to break myself
                 # into 2 smaller rocks !
-                self.exploding = True
                 self.times_hit += 1
                 if self.times_hit < 3:
                     self.size /= 2
@@ -51,7 +49,6 @@ class Asteroid(WEntity):
                     self.galaxy.add_entity(self.fragment())
                     entity.dead = True
                 else:
-                    self.exploding = True
                     self.dead = True
 
     def render(self, surface):
