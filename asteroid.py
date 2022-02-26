@@ -30,13 +30,11 @@ class Asteroid(WEntity):
         self.angular_speed = ANGULAR_SPEED
         self.rotating = CLOCKWISE
         self.size = SCALE_FACTOR
-# >>>>>
         self.times_hit = 0
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
 
-# >>>>>
         for entity in self.galaxy.get_entities_by_name('blast'):
             if self.collide(entity):
                 # if a blast hit me, I need to break myself
@@ -54,7 +52,6 @@ class Asteroid(WEntity):
     def render(self, surface):
         super().render(surface)
 
-# >>>>>
     def fragment(self):
         fragment = Asteroid(self.galaxy)
         fragment.position = Vector2(self.position)
