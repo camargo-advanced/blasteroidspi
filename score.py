@@ -17,11 +17,8 @@ class Score(Entity):
         self.text_game_over = 'GAME OVER'
         self.score = 0
         self.lives = INITIAL_LIVES
-        self.fps = 0.0
         self.font = pygame.font.Font(
             os.path.join('res', 'hyperspace-bold.otf'), 90)
-        self.font_fps = pygame.font.Font(os.path.join(
-            'res', 'hyperspace-bold.otf'), 20)
         self.ship = Ship(galaxy)  # ship to render the number of lives
         self.difficulty = 1.0
         self.ship_shielded = True
@@ -51,14 +48,6 @@ class Score(Entity):
             self.ship.position = Vector2(x, 160)
             self.ship.render(surface)
 
-        # render FPS
-        text = "FPS = {0:.1f}".format(self.fps)
-        text_surface = self.font_fps.render(text, False, self.color)
-        text_rect = text_surface.get_rect()
-        text_rect.centerx = self.galaxy.rect.width - 100
-        text_rect.y = 20
-        surface.blit(text_surface, text_rect)
-
         # render game over !
         if self.lives <= 0:
             text_surface = self.font.render(
@@ -79,14 +68,11 @@ class Score(Entity):
         elif self.lives > MAX_LIVES:
             self.lives = MAX_LIVES
 
-    def update_fps(self, fps):
-        self.fps = fps
-
     def update_ship_shielded(self, shielded):
         self.ship_shielded = shielded
 
     def increase_difficulty_by(self, multiplier):
         self.difficulty *= multiplier
 
-    def update_game_status(self, status):
-        self.game_status = status
+    def run_game(self):
+        self.game_status = GAME_RUNNING

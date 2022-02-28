@@ -5,6 +5,8 @@ from score import Score
 from ship import Ship
 from asteroid import Asteroid
 from countdown import CountDown
+#>>>>>
+from fps import Fps
 from utils import *
 
 COLOR_DEPTH = 8
@@ -44,10 +46,13 @@ class Game():
                     for i in range(NUMBER_ASTEROIDS):
                         self.galaxy.add_entity(Asteroid(self.galaxy))
                     self.galaxy.add_entity(CountDown(self.galaxy))
+#>>>>>
+                    self.fps = Fps(self.galaxy)
+                    self.galaxy.add_entity(self.fps)
                     pygame.time.set_timer(NEW_PHASE, 6000, 1)
 
                 if event.type == NEW_PHASE:
-                    self.score.update_game_status(GAME_RUNNING)
+                    self.score.run_game()
                     pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
 
             if len(self.galaxy.get_entities_by_name('asteroid')) == 0:
@@ -61,7 +66,8 @@ class Game():
             # set the framerate, updates entities in the galaxy
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
-            self.score.update_fps(self.clock.get_fps())
+#>>>>>
+            self.fps.update_fps(self.clock.get_fps())
             self.galaxy.update(time_passed, event_list)
             self.galaxy.render(self.screen)
             self.galaxy.cleanup()
