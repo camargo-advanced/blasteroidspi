@@ -1,4 +1,4 @@
-# blasteroidspi - Colisão entre a nave e os asteróides #17
+# blasteroidspi - FPS em tempo real #17
 Implementação do jogo Asteroids em Python com a biblioteca Pygame.
 
 Esse código é o resultado da aula #17 da playlist "Vamos programar Asteroides" no Youtube. Acesse essa aula [aqui](https://youtu.be/zOHUH706dgs).
