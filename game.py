@@ -3,7 +3,6 @@ from pygame.locals import *
 from asteroid import Asteroid
 from galaxy import Galaxy
 from ship import Ship
-#>>>>>
 from fps import Fps
 from utils import *
 
@@ -26,7 +25,6 @@ class Game():
 
         self.galaxy = Galaxy(self.screen_rect)
         self.galaxy.add_entity(Ship(self.galaxy))
-#>>>>>
         self.fps = Fps(self.galaxy)
         self.galaxy.add_entity(self.fps)
         for i in range(NUMBER_ASTEROIDS):
@@ -45,7 +43,6 @@ class Game():
             # set the framerate, updates entities in the galaxy
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
-#>>>>>
             self.fps.update_fps(self.clock.get_fps())
             self.galaxy.update(time_passed, event_list)
             self.galaxy.render(self.screen)
