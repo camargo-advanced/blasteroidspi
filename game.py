@@ -26,7 +26,7 @@ class Game():
 
         self.galaxy = Galaxy(self.screen_rect)
         self.galaxy.add_entity(Ship(self.galaxy))
-        #>>>>>
+#>>>>>
         self.fps = Fps(self.galaxy)
         self.galaxy.add_entity(self.fps)
         for i in range(NUMBER_ASTEROIDS):
