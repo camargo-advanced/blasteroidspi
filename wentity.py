@@ -40,7 +40,8 @@ class WEntity(Entity):
 
         # update velocity vector
         self.velocity += acceleration * time_passed
-        self.velocity *= self.damping ** time_passed
+        if not self.accelerating:
+            self.velocity *= self.damping ** time_passed
 
     def render(self, surface):
         super().render(surface)

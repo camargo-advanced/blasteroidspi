@@ -5,7 +5,6 @@ from score import Score
 from ship import Ship
 from asteroid import Asteroid
 from countdown import CountDown
-#>>>>>
 from fps import Fps
 from utils import *
 
@@ -46,7 +45,6 @@ class Game():
                     for i in range(NUMBER_ASTEROIDS):
                         self.galaxy.add_entity(Asteroid(self.galaxy))
                     self.galaxy.add_entity(CountDown(self.galaxy))
-#>>>>>
                     self.fps = Fps(self.galaxy)
                     self.galaxy.add_entity(self.fps)
                     pygame.time.set_timer(NEW_PHASE, 6000, 1)
@@ -58,7 +56,7 @@ class Game():
             if len(self.galaxy.get_entities_by_name('asteroid')) == 0:
                 # if you run out of asteroids, it changes phases, adding a life
                 # but increasing the asteroids speed
-                self.score.increase_difficulty_by(1.11)
+                self.score.increase_game_difficulty_by(1.11)
                 self.score.update_lives(+1)
                 for i in range(NUMBER_ASTEROIDS):
                     self.galaxy.add_entity(Asteroid(self.galaxy))
@@ -66,7 +64,6 @@ class Game():
             # set the framerate, updates entities in the galaxy
             # render the entities on buffer and flips the buffer to screen
             time_passed = self.clock.tick(FPS)
-#>>>>>
             self.fps.update_fps(self.clock.get_fps())
             self.galaxy.update(time_passed, event_list)
             self.galaxy.render(self.screen)
