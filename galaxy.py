@@ -13,7 +13,6 @@ class Galaxy():
         entity.id = self.entity_id
         self.entity_id += 1
 
-#>>>>>
     def get_entity_by_name(self, entity_name):
         for entity in self.entities.values():
             if entity.name == entity_name:
