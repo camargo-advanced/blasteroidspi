@@ -48,6 +48,10 @@ class Asteroid(WEntity):
                     entity.dead = True
                 else:
                     self.dead = True
+#>>>>>
+                # update score                
+                self.galaxy.get_entity_by_name(
+                    'score').update_score(+100*self.times_hit)
 
     def render(self, surface):
         super().render(surface)

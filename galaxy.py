@@ -12,7 +12,14 @@ class Galaxy():
         self.entities[self.entity_id] = entity
         entity.id = self.entity_id
         self.entity_id += 1
-#--------->
+
+#>>>>>
+    def get_entity_by_name(self, entity_name):
+        for entity in self.entities.values():
+            if entity.name == entity_name:
+                return entity
+        return None
+
     def get_entities_by_name(self, entity_name):
         entities = []
         for entity in self.entities.values():

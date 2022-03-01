@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import *
 from asteroid import Asteroid
 from galaxy import Galaxy
+#>>>>>
+from score import Score
 from ship import Ship
 from fps import Fps
 from utils import *
@@ -27,6 +29,9 @@ class Game():
         self.galaxy.add_entity(Ship(self.galaxy))
         self.fps = Fps(self.galaxy)
         self.galaxy.add_entity(self.fps)
+#>>>>>
+        self.score = Score(self.galaxy)
+        self.galaxy.add_entity(self.score)
         for i in range(NUMBER_ASTEROIDS):
             self.galaxy.add_entity(Asteroid(self.galaxy))
 
