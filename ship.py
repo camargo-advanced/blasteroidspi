@@ -51,7 +51,6 @@ class Ship(WEntity):
                                         self.galaxy.rect.height/2)
                 self.velocity = Vector2(0.0, 0.0)
                 self.angle = 0.0
-#>>>>>
                 self.galaxy.get_entity_by_name('score').update_lives(-1)
 
     def render(self, surface):
