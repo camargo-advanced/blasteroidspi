@@ -46,11 +46,13 @@ class Ship(WEntity):
         for entity in self.galaxy.get_entities_by_name('asteroid'):
             if self.collide(entity):
                 # if a rock hit me, I need to be positioned at the center of screen stationary,
-                # and in the same angle I was born. 
+                # and in the same angle I was born. The lives must be reduced by 1
                 self.position = Vector2(self.galaxy.rect.width/2,
                                         self.galaxy.rect.height/2)
                 self.velocity = Vector2(0.0, 0.0)
                 self.angle = 0.0
+#>>>>>
+                self.galaxy.get_entity_by_name('score').update_lives(-1)
 
     def render(self, surface):
         super().render(surface)
