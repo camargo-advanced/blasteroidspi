@@ -6,7 +6,7 @@ from ship import Ship
 from utils import *
 #>>>>>
 INITIAL_NUM_LIVES = 3
-MAX_LIVES = 5
+
 
 class Score(Entity):
     def __init__(self, galaxy):
@@ -46,6 +46,5 @@ class Score(Entity):
         self.num_lives += variation
         if self.num_lives < 0:
             self.num_lives = 0
-        elif self.num_lives > MAX_LIVES:
-            self.num_lives = MAX_LIVES
+
             
