@@ -42,7 +42,7 @@ class Game():
             for event in event_list:
                 if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
-#>>>>>
+                    
             if len(self.galaxy.get_entities_by_name('asteroid')) == 0:
                 # if you run out of asteroids, it changes phases, adding a life
                 # but increasing the asteroids speed
