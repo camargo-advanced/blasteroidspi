@@ -15,6 +15,8 @@ class Score(Entity):
         self.font = pygame.font.Font(
             os.path.join('res', 'hyperspace-bold.otf'), 90)
         self.num_lives = INITIAL_NUM_LIVES
+#>>>>>
+        self.game_difficulty = 1.0
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -46,4 +48,6 @@ class Score(Entity):
         if self.num_lives < 0:
             self.num_lives = 0
 
-            
+#>>>>>
+    def increase_game_difficulty_by(self, multiplier):
+        self.game_difficulty *= multiplier

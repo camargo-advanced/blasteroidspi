@@ -42,6 +42,14 @@ class Game():
             for event in event_list:
                 if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
+#>>>>>
+            if len(self.galaxy.get_entities_by_name('asteroid')) == 0:
+                # if you run out of asteroids, it changes phases, adding a life
+                # but increasing the asteroids speed
+                self.score.increase_game_difficulty_by(1.11)
+                self.score.update_lives(+1)
+                for i in range(NUMBER_ASTEROIDS):
+                    self.galaxy.add_entity(Asteroid(self.galaxy))
 
             # set the framerate, updates entities in the galaxy
             # render the entities on buffer and flips the buffer to screen

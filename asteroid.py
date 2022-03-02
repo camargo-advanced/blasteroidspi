@@ -25,7 +25,9 @@ class Asteroid(WEntity):
             random()*self.galaxy.rect.width, random()*self.galaxy.rect.height)
 
         # linear velocity in pixels per second at random angle
-        self.velocity = Vector2(0.0, SPEED).rotate(random() * 360.0)
+#>>>>>
+        self.velocity = Vector2(
+            0.0, SPEED * galaxy.get_entity_by_name('score').game_difficulty).rotate(random() * 360.0)
 
         self.angular_speed = ANGULAR_SPEED
         self.rotating = CLOCKWISE
