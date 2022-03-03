@@ -15,14 +15,12 @@ class Score(Entity):
         self.font = pygame.font.Font(
             os.path.join('res', 'hyperspace-bold.otf'), 90)
         self.num_lives = INITIAL_NUM_LIVES
-#>>>>>
         self.ship_shielded = True
         self.game_difficulty = 1.0
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
         # build text with current score
-#>>>>>
         if self.ship_shielded:
             self.text = "{0:,} *".format(self.score)
         else:
@@ -52,7 +50,7 @@ class Score(Entity):
         self.num_lives += variation
         if self.num_lives < 0:
             self.num_lives = 0
-#>>>>>
+            
     def update_ship_shielded(self, shielded):
         self.ship_shielded = shielded
 

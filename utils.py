@@ -12,7 +12,6 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 
 # game custom events
-#>>>>>
 UNSHIELD_EVENT = pygame.USEREVENT + 3
 
 # entity movements
