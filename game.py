@@ -26,6 +26,8 @@ class Game():
 
         self.galaxy = Galaxy(self.screen_rect)
         self.galaxy.add_entity(Ship(self.galaxy))
+#>>>>>
+        pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
         self.fps = Fps(self.galaxy)
         self.galaxy.add_entity(self.fps)
         self.score = Score(self.galaxy)

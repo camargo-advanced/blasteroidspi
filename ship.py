@@ -29,6 +29,8 @@ class Ship(WEntity):
         self.damping = DAMPING 
         self.angular_speed = ANGULAR_SPEED
         self.size = SCALE_FACTOR
+#>>>>>
+        self.shielded = True
         self.firing = False 
 
     def update(self, time_passed, event_list):
@@ -44,9 +46,14 @@ class Ship(WEntity):
             self.firing = False
 
         for entity in self.galaxy.get_entities_by_name('asteroid'):
-            if self.collide(entity):
-                # if a rock hit me, I need to be positioned at the center of screen stationary,
+#>>>>>
+            if not self.shielded and self.collide(entity):
+                # if a rock hit me, I lose a life but I'm shielded for 5 sec!
+                # I also need to be positioned at the center of screen stationary,
                 # and in the same angle I was born. The lives must be reduced by 1
+#>>>>>                
+                self.shield()
+                pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
                 self.position = Vector2(self.galaxy.rect.width/2,
                                         self.galaxy.rect.height/2)
                 self.velocity = Vector2(0.0, 0.0)
@@ -80,6 +87,17 @@ class Ship(WEntity):
                     self.stop_rotating()
                 if event.key == K_UP or event.key == K_w:
                     self.stop_accelerating()
+#>>>>>
+            if event.type == UNSHIELD_EVENT:
+                self.unshield()
 
     def fire(self): 
         self.firing = True
+#>>>>>
+    def unshield(self):
+        self.shielded = False
+        self.galaxy.get_entity_by_name('score').update_ship_shielded(False)
+#>>>>>
+    def shield(self):
+        self.shielded = True
+        self.galaxy.get_entity_by_name('score').update_ship_shielded(True)

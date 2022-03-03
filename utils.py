@@ -1,4 +1,7 @@
 # basic colors
+import pygame
+
+
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
@@ -7,6 +10,10 @@ RED = (255, 0, 0)
 MAGENTA = (255, 0, 255)
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
+
+# game custom events
+#>>>>>
+UNSHIELD_EVENT = pygame.USEREVENT + 3
 
 # entity movements
 CLOCKWISE = 1  # rotating clockwise
