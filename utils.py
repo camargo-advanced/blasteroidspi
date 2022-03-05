@@ -12,7 +12,10 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 
 # game custom events
+NEW_GAME = pygame.USEREVENT + 1
+START_GAME = pygame.USEREVENT + 2
 UNSHIELD_EVENT = pygame.USEREVENT + 3
+COUNT_DOWN_EVENT = pygame.USEREVENT + 4
 
 # entity movements
 CLOCKWISE = 1  # rotating clockwise
