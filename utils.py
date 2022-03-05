@@ -12,7 +12,6 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 
 # game custom events
-#>>>>>
 NEW_GAME = pygame.USEREVENT + 1
 START_GAME = pygame.USEREVENT + 2
 UNSHIELD_EVENT = pygame.USEREVENT + 3

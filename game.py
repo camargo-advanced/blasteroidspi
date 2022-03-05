@@ -22,21 +22,17 @@ class Game():
         pygame.display.set_caption(
             "Asteroids arcade game")  # set window caption
         self.clock = pygame.time.Clock()  # the time starts
-#>>>>>
         pygame.event.post(pygame.event.Event(NEW_GAME))
 
-#>>>>>
     def new_game(self):
         self.galaxy = Galaxy(self.screen_rect)
         self.galaxy.add_entity(Ship(self.galaxy))
-        pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
         self.fps = Fps(self.galaxy)
         self.galaxy.add_entity(self.fps)
         self.score = Score(self.galaxy)
         self.galaxy.add_entity(self.score)
         for i in range(NUMBER_ASTEROIDS):
             self.galaxy.add_entity(Asteroid(self.galaxy))
-#>>>>>
         self.galaxy.add_entity(CountDown(self.galaxy))
 
     def run(self):
@@ -49,7 +45,6 @@ class Game():
             for event in event_list:
                 if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
-#>>>>>
                 if event.type == NEW_GAME:
                     self.new_game()
 
