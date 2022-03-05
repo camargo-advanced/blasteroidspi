@@ -17,10 +17,9 @@ class Score(Entity):
         self.font = pygame.font.Font(
             os.path.join('res', 'hyperspace-bold.otf'), 90)
         self.num_lives = INITIAL_NUM_LIVES
-        # list of ships which represents the numer of lives
         self.ship_shielded = True
         self.game_difficulty = 1.0
-        self.game_status = GAME_DEMO_MODE
+        self.game_status = GAME_NOT_RUNNING
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -39,9 +38,9 @@ class Score(Entity):
 
         # play siren sound when restarting the game
         if self.num_lives <= 0 and self.game_status == GAME_RUNNING:
+            self.game_status = GAME_NOT_RUNNING
             Sound().play('siren')
-            pygame.time.set_timer(RESTART_GAME, 3000, 1)
-            self.game_status = GAME_DEMO_MODE
+            pygame.time.set_timer(NEW_GAME, 3000, 1)
 
     def render(self, surface):
         super().render(surface)

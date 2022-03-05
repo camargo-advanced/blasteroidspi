@@ -11,13 +11,13 @@ YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 
 # game custom events
-RESTART_GAME = pygame.USEREVENT + 1
-NEW_PHASE = pygame.USEREVENT + 2
+NEW_GAME = pygame.USEREVENT + 1
+START_GAME = pygame.USEREVENT + 2
 UNSHIELD_EVENT = pygame.USEREVENT + 3
 COUNT_DOWN_EVENT = pygame.USEREVENT + 4
 
 # game statuses
-GAME_DEMO_MODE = 1
+GAME_NOT_RUNNING = 1
 GAME_RUNNING = 2
 
 # entity movements

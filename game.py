@@ -22,7 +22,20 @@ class Game():
         pygame.display.set_caption(
             "Asteroids arcade game")  # set window caption
         self.clock = pygame.time.Clock()  # the time starts
-        pygame.event.post(pygame.event.Event(RESTART_GAME))
+        pygame.event.post(pygame.event.Event(NEW_GAME))
+
+    def new_game(self):
+        # build a new galaxy with a number of asteroids, a ship and the score,
+        # add a count down to queue game start in a new phase
+        self.galaxy = Galaxy(self.screen_rect)
+        self.score = Score(self.galaxy)
+        self.galaxy.add_entity(self.score)
+        self.galaxy.add_entity(Ship(self.galaxy))
+        for i in range(NUMBER_ASTEROIDS):
+            self.galaxy.add_entity(Asteroid(self.galaxy))
+        self.fps = Fps(self.galaxy)
+        self.galaxy.add_entity(self.fps)
+        self.galaxy.add_entity(CountDown(self.galaxy))
 
     def run(self):
         # game main loop!
@@ -35,23 +48,8 @@ class Game():
                 if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
 
-                if event.type == RESTART_GAME:
-                    # build a new galaxy with a number of asteroids, a ship and the score,
-                    # add a count down to queue game start in a new phase
-                    self.galaxy = Galaxy(self.screen_rect)
-                    self.score = Score(self.galaxy)
-                    self.galaxy.add_entity(self.score)
-                    self.galaxy.add_entity(Ship(self.galaxy))
-                    for i in range(NUMBER_ASTEROIDS):
-                        self.galaxy.add_entity(Asteroid(self.galaxy))
-                    self.galaxy.add_entity(CountDown(self.galaxy))
-                    self.fps = Fps(self.galaxy)
-                    self.galaxy.add_entity(self.fps)
-                    pygame.time.set_timer(NEW_PHASE, 6000, 1)
-
-                if event.type == NEW_PHASE:
-                    self.score.run_game()
-                    pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)
+                if event.type == NEW_GAME:
+                    self.new_game()
 
             if len(self.galaxy.get_entities_by_name('asteroid')) == 0:
                 # if you run out of asteroids, it changes phases, adding a life

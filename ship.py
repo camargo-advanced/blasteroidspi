@@ -74,20 +74,17 @@ class Ship(WEntity):
         super().render(surface)
 
         if self.accelerating == FORWARD:
-            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
-                Sound().play('thrust')
+            Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
 
         if self.firing:
-            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
-                Sound().play('fire')
+            Sound().play('fire')
             self.firing = False
 
         if self.dying:
-            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
-                Sound().play('bang')
+            Sound().play('bang')
             self.dying = False
 
     def process_events(self, event_list):
