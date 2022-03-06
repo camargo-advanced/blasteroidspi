@@ -6,7 +6,6 @@ from pygame import Vector2
 from utils import *
 
 INITIAL_NUM_LIVES = 3
-#>>>>>
 MAX_LIVES = 5
 
 
@@ -19,7 +18,6 @@ class Score(Entity):
         self.num_lives = INITIAL_NUM_LIVES
         self.ship_shielded = True
         self.game_difficulty = 1.0
-#>>>>>
         self.game_status = GAME_NOT_RUNNING
 
     def update(self, time_passed, event_list):
@@ -36,7 +34,7 @@ class Score(Entity):
             ship = Ship(self.galaxy)
             ship.position = Vector2(x, 160)
             self.lives.append(ship)
-#>>>>>
+
         # start a new game
         if self.num_lives <= 0 and self.game_status == GAME_RUNNING:
             self.game_status = GAME_NOT_RUNNING
@@ -59,7 +57,6 @@ class Score(Entity):
         self.num_lives += variation
         if self.num_lives < 0:
             self.num_lives = 0
-#>>>>>
         elif self.num_lives > MAX_LIVES:
             self.num_lives = MAX_LIVES
             
@@ -68,6 +65,6 @@ class Score(Entity):
 
     def increase_game_difficulty_by(self, multiplier):
         self.game_difficulty *= multiplier
-#>>>>>
+
     def run_game(self):
         self.game_status = GAME_RUNNING

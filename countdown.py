@@ -50,6 +50,5 @@ class CountDown(Entity):
             if event.type == COUNT_DOWN_EVENT:
                 self.tick = True
             if event.type == START_GAME:
-#>>>>>
                 self.galaxy.get_entity_by_name('score').run_game()
                 pygame.time.set_timer(UNSHIELD_EVENT, 5000, 1)

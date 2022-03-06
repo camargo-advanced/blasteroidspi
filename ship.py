@@ -34,7 +34,7 @@ class Ship(WEntity):
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
-#>>>>>
+
         if self.galaxy.get_entity_by_name('score').game_status != GAME_RUNNING:
             return
 
