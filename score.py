@@ -50,6 +50,15 @@ class Score(Entity):
         for ship in self.lives:
             ship.render(surface)
 
+        # render game over !
+        if self.num_lives <= 0:
+            game_over_surface = self.font.render(
+                'GAME OVER', False, self.color)
+            game_over_rect = game_over_surface.get_rect()
+            game_over_rect.centerx = self.galaxy.rect.centerx
+            game_over_rect.centery = self.galaxy.rect.centery - 200
+            surface.blit(game_over_surface, game_over_rect)
+
     def update_score(self, variation):
         self.score += variation
 
