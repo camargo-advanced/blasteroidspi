@@ -1,6 +1,6 @@
-# blasteroidspi - Contagem regressiva #22
+# blasteroidspi - Game Over e novo jogo ! #23
 Implementação do jogo Asteroids em Python com a biblioteca Pygame.
 
-Esse código é o resultado da aula #22 da playlist "Vamos programar Asteroides" no Youtube. Acesse essa aula [aqui](https://youtu.be/TgyMf0Ai6ko).
+Esse código é o resultado da aula #23 da playlist "Vamos programar Asteroides" no Youtube. Acesse essa aula [aqui](https://youtu.be/dpwri_xQIso).
 
 A versão final do código do jogo encontra-se [aqui](https://github.com/camargo-advanced/blasteroidspi).
