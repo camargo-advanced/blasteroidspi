@@ -17,6 +17,11 @@ START_GAME = pygame.USEREVENT + 2
 UNSHIELD_EVENT = pygame.USEREVENT + 3
 COUNT_DOWN_EVENT = pygame.USEREVENT + 4
 
+# game statuses
+#>>>>>
+GAME_NOT_RUNNING = 1
+GAME_RUNNING = 2
+
 # entity movements
 CLOCKWISE = 1  # rotating clockwise
 CCLOCKWISE = -1  # rotating counter clockwise
