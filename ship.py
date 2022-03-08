@@ -1,5 +1,6 @@
 from pygame.locals import *
-from blast import Blast 
+from blast import Blast
+from sound import Sound 
 from wentity import WEntity
 from pygame.math import Vector2
 from utils import *
@@ -31,6 +32,8 @@ class Ship(WEntity):
         self.size = SCALE_FACTOR
         self.shielded = True
         self.firing = False 
+#>>>>>
+        self.dying = False
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -46,13 +49,14 @@ class Ship(WEntity):
             # and then add it to the galaxy
             blast = Blast(self.galaxy, Vector2(self.position), self.angle)
             self.galaxy.add_entity(blast)
-            self.firing = False
 
         for entity in self.galaxy.get_entities_by_name('asteroid'):
             if not self.shielded and self.collide(entity):
                 # if a rock hit me, I lose a life but I'm shielded for 5 sec!
                 # I also need to be positioned at the center of screen stationary,
                 # and in the same angle I was born. The lives must be reduced by 1               
+#>>>>>
+                self.dying = True
                 self.shield()
                 pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
                 self.position = Vector2(self.galaxy.rect.width/2,
@@ -65,9 +69,19 @@ class Ship(WEntity):
         super().render(surface)
 
         if self.accelerating == FORWARD:
+#>>>>>
+            Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
+#>>>>>
+        if self.firing:
+            Sound().play('fire')
+            self.firing = False
+#>>>>>
+        if self.dying:
+            Sound().play('bang')
+            self.dying = False
 
     def process_events(self, event_list):
         for event in event_list:
