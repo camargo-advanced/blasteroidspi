@@ -49,6 +49,7 @@ class Ship(WEntity):
             # and then add it to the galaxy
             blast = Blast(self.galaxy, Vector2(self.position), self.angle)
             self.galaxy.add_entity(blast)
+#>>>>> REMOVI self.firing = False 
 
         for entity in self.galaxy.get_entities_by_name('asteroid'):
             if not self.shielded and self.collide(entity):
