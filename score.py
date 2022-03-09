@@ -3,6 +3,7 @@ import pygame
 from entity import Entity
 from ship import Ship
 from pygame import Vector2
+from sound import Sound
 from utils import *
 
 INITIAL_NUM_LIVES = 3
@@ -39,7 +40,9 @@ class Score(Entity):
         if self.num_lives <= 0 and self.game_status == GAME_RUNNING:
             self.game_status = GAME_NOT_RUNNING
             pygame.time.set_timer(NEW_GAME, 3000, 1)
-
+#>>>>>
+            Sound().play('siren')
+            
     def render(self, surface):
         super().render(surface)
         # render score

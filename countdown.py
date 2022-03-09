@@ -1,5 +1,6 @@
 import os
 from entity import Entity
+from sound import Sound
 from utils import *
 
 NUMBER_OF_SECONDS = 3
@@ -14,6 +15,8 @@ class CountDown(Entity):
         pygame.time.set_timer(COUNT_DOWN_EVENT, 1000, self.sequence + 1)
         pygame.time.set_timer(START_GAME, self.sequence*1000, 1)
         self.tick = False
+#>>>>>
+        Sound().play('beep-countdown')
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -29,7 +32,7 @@ class CountDown(Entity):
         # on tick, update the sequence number,
         # at tick end, countdown dies
         if self.tick:
-            self.tick = False
+#>>>>> R    self.tick = False
             self.sequence -= 1
             if self.sequence == -1:
                 self.dead = True
@@ -44,6 +47,14 @@ class CountDown(Entity):
             rect.centery = self.galaxy.rect.centery / 2
             rect.centerx = self.galaxy.rect.centerx
             surface.blit(countdown_surface, rect)
+#>>>>>
+        # render sound
+        if self.tick:
+            self.tick = False
+            if self.sequence > 0:
+                Sound().play('beep-countdown')
+            elif self.sequence == 0:
+                Sound().play('beep')
 
     def process_events(self, event_list):
         for event in event_list:

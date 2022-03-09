@@ -1,3 +1,4 @@
+from sound import Sound
 from wentity import WEntity
 from random import random
 from pygame.math import Vector2
@@ -32,6 +33,8 @@ class Asteroid(WEntity):
         self.rotating = CLOCKWISE
         self.size = SCALE_FACTOR
         self.times_hit = 0
+#>>>>>
+        self.exploding = False
 
     def update(self, time_passed, event_list):
         super().update(time_passed, event_list)
@@ -40,13 +43,17 @@ class Asteroid(WEntity):
             if self.collide(entity):
                 # if a blast hit me, I need to break myself
                 # into 2 smaller rocks !
+#>>>>>
+                self.exploding = True
                 self.times_hit += 1
+#>>>>>
+                entity.dead = True # kills the blast
                 if self.times_hit < 3:
                     self.size /= 2
                     self.velocity *= 1.5
                     self.velocity.rotate_ip(random()*360)
                     self.galaxy.add_entity(self.fragment())
-                    entity.dead = True
+#>>>>> removed      entity.dead = True 
                 else:
                     self.dead = True
                 # update score                
@@ -55,7 +62,12 @@ class Asteroid(WEntity):
 
     def render(self, surface):
         super().render(surface)
-
+#>>>>>
+       # render visuals and sounds
+        if self.exploding:
+            Sound().play('bang')
+            self.exploding = False
+            
     def fragment(self):
         fragment = Asteroid(self.galaxy)
         fragment.position = Vector2(self.position)
