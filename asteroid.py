@@ -63,7 +63,7 @@ class Asteroid(WEntity):
     def render(self, surface):
         super().render(surface)
 #>>>>>
-       # render visuals and sounds
+       # render sound
         if self.exploding:
             Sound().play('bang')
             self.exploding = False
