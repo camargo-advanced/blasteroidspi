@@ -46,14 +46,13 @@ class Asteroid(WEntity):
                 self.times_hit += 1
                 self.galaxy.get_entity_by_name(
                     'score').update_score(+100*self.times_hit)
+                entity.dead = True
                 if self.times_hit < 3:
                     self.size /= 2
                     self.velocity *= 1.5
                     self.velocity.rotate_ip(random()*360)
                     self.galaxy.add_entity(self.fragment())
-                    entity.dead = True
                 else:
-                    self.exploding = True
                     self.dead = True
 
     def render(self, surface):
@@ -61,8 +60,7 @@ class Asteroid(WEntity):
         
         # render visuals and sounds
         if self.exploding:
-            if self.galaxy.get_entity_by_name('score').num_lives > 0:
-                Sound().play('bang')
+            Sound().play('bang')
             self.exploding = False
 
     def fragment(self):
