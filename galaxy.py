@@ -13,9 +13,6 @@ class Galaxy():
         entity.id = self.entity_id
         self.entity_id += 1
 
-    def remove_entity(self, entity):
-        del self.entities[entity.id]
-
     def get_entity_by_name(self, entity_name):
         for entity in self.entities.values():
             if entity.name == entity_name:
@@ -29,11 +26,14 @@ class Galaxy():
                 entities.append(entity)
         return entities
 
+    def remove_entity(self, entity): 
+        del self.entities[entity.id]
+
     def update(self, time_passed, event_list):
         time_passed_seconds = time_passed / 1000.0
-        for entity in list(self.entities.values()):
+        for entity in list(self.entities.values()): 
             entity.update(time_passed_seconds, event_list)
-            if not self.in_screen_space(entity.position):
+            if not self.in_screen_space(entity.position): 
                 # entities require authorization to leave the galaxy,
                 # thus we must keep entities inside it !
                 if entity.name == 'asteroid' or entity.name == 'ship':
@@ -46,7 +46,7 @@ class Galaxy():
         for entity in self.entities.values():
             entity.render(surface)
 
-    def cleanup(self):
+    def cleanup(self): 
         # remove all dead entities
         for entity in list(self.entities.values()):
             if entity.dead == True:

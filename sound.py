@@ -3,7 +3,7 @@ import pygame
 
 
 class Sound():
-    """Load game sounds and make them availaboe to play.
+    """Load game sounds and make them available to play.
     This class follows the singleton design pattern. """
     _instance = None
     _sounds = {}

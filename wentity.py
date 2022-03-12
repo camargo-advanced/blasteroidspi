@@ -40,19 +40,18 @@ class WEntity(Entity):
 
         # update velocity vector
         self.velocity += acceleration * time_passed
-        self.velocity *= self.damping ** time_passed
+        if not self.accelerating:
+            self.velocity *= self.damping ** time_passed 
 
     def render(self, surface):
         super().render(surface)
 
-        # rotate, scale, translate,
         draw = []
         for point in self.wireframe:
             draw.append(
-                Vector2(point).rotate(self.angle) *
-                self.size + self.position
+                Vector2(point).rotate(self.angle) * self.size + self.position
             )
-        # and draw
+
         pygame.draw.lines(surface, self.color, True, draw, self.width)
 
     def diameter(self):
@@ -92,11 +91,11 @@ class WEntity(Entity):
     def start_rotating(self, direction):
         self.rotating = direction
 
-    def start_accelerating(self, direction):
-        self.accelerating = direction
-
     def stop_rotating(self):
         self.rotating = None
+
+    def start_accelerating(self, direction):
+        self.accelerating = direction
 
     def stop_accelerating(self):
         self.accelerating = None

@@ -1,11 +1,9 @@
-import pygame
 from pygame.locals import *
 from blast import Blast
-from sound import Sound
+from sound import Sound 
 from wentity import WEntity
 from pygame.math import Vector2
 from utils import *
-
 
 WIDTH = 3  # line thickness
 SCALE_FACTOR = 5.0
@@ -20,7 +18,6 @@ THRUST_WIREFRAME = [
     Vector2(1.0, 2.0), Vector2(0.0, 5.0), Vector2(-1.0, 2.0)
 ]
 
-
 class Ship(WEntity):
 
     def __init__(self, galaxy):
@@ -29,15 +26,12 @@ class Ship(WEntity):
         # ship initial position
         self.position = Vector2(self.galaxy.rect.width/2,
                                 self.galaxy.rect.height/2)
-
-        # linear acceleration and angular speed
         self.acceleration = ACCELERATION
-        self.damping = DAMPING
+        self.damping = DAMPING 
         self.angular_speed = ANGULAR_SPEED
-
         self.size = SCALE_FACTOR
         self.shielded = True
-        self.firing = False
+        self.firing = False 
         self.dying = False
 
     def update(self, time_passed, event_list):
@@ -47,8 +41,8 @@ class Ship(WEntity):
             return
 
         self.process_events(event_list)
-
-        if self.firing:
+        
+        if self.firing: 
             # build a new blast, set its position to the ship's,
             # set its velocity vector to ship's orientation
             # and then add it to the galaxy
@@ -59,7 +53,7 @@ class Ship(WEntity):
             if not self.shielded and self.collide(entity):
                 # if a rock hit me, I lose a life but I'm shielded for 5 sec!
                 # I also need to be positioned at the center of screen stationary,
-                # and in the same angle I was born. The lives must be reduced by 1
+                # and in the same angle I was born. The lives must be reduced by 1               
                 self.dying = True
                 self.shield()
                 pygame.time.set_timer(UNSHIELD_EVENT, 2500, 1)
@@ -70,24 +64,20 @@ class Ship(WEntity):
                 self.galaxy.get_entity_by_name('score').update_lives(-1)
 
     def render(self, surface):
-        # render visuals and sounds
         super().render(surface)
 
         if self.accelerating == FORWARD:
-            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
-                Sound().play('thrust')
+            Sound().play('thrust')
             self.wireframe = THRUST_WIREFRAME
             super().render(surface)
             self.wireframe = SHIP_WIREFRAME
 
         if self.firing:
-            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
-                Sound().play('fire')
+            Sound().play('fire')
             self.firing = False
 
         if self.dying:
-            if self.galaxy.get_entity_by_name('score').game_status == GAME_RUNNING:
-                Sound().play('bang')
+            Sound().play('bang')
             self.dying = False
 
     def process_events(self, event_list):
@@ -113,7 +103,7 @@ class Ship(WEntity):
             if event.type == UNSHIELD_EVENT:
                 self.unshield()
 
-    def fire(self):
+    def fire(self): 
         self.firing = True
 
     def unshield(self):
