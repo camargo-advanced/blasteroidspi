@@ -12,6 +12,8 @@ To run, just clone the repository in terminal, enter the directory and run the f
 `python3 -m pip install -U pygame`  
 `python3 game.py`  
   
+Remember that you need to have python3 installed on your system before running the above commands.  
+
 If you are interested in collaborating, please feel free to suggest the inclusion of new features and improvements by github. All suggestions will be analyzed and considered for a future release.  
     
 ![screenshot](screenshot.png)
