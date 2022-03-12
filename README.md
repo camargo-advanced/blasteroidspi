@@ -8,8 +8,8 @@ In addition, I also took valuable lessons in game implementation from the book [
 It's also very important to mention the valuable lessons in game programming and the math involved that I gained through the [Code-It-Yourself video! Asteroids (Simple C++ and Maths!)](https://www.youtube.com/watch?v=QgDR8LrRZhk), plus other videos by the same author that I recommend.  
 
 To run, just clone the repository in terminal, enter the directory and run the following commands:
-`python3 -m venv .venv`
-`python3 -m pip install -U pygame`
+`python3 -m venv .venv`  
+`python3 -m pip install -U pygame`  
 `python3 game.py`  
   
 If you are interested in collaborating, please feel free to suggest the inclusion of new features and improvements by github. All suggestions will be analyzed and considered for a future release.  
