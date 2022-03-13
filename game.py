@@ -6,6 +6,7 @@ from galaxy import Galaxy
 from score import Score
 from ship import Ship
 from fps import Fps
+from joystick import Joystick
 from utils import *
 
 COLOR_DEPTH = 8
@@ -16,11 +17,15 @@ NUMBER_ASTEROIDS = 7
 class Game():
     def __init__(self):
         pygame.init()  # initialize pygame library and set screen mode
-        self.screen = pygame.display.set_mode(
-            flags=pygame.FULLSCREEN, depth=COLOR_DEPTH)  # initialize the display
+        self.screen = pygame.display.set_mode(depth=COLOR_DEPTH)  # initialize the display
         self.screen_rect = self.screen.get_rect()
         pygame.display.set_caption(
             "Asteroids arcade game")  # set window caption
+        self.joysticks = []
+        for joystick_no in range(pygame.joystick.get_count()):
+            stick = pygame.joystick.Joystick(joystick_no)
+            stick.init()
+            self.joysticks.append(stick)
         self.clock = pygame.time.Clock()  # the time starts
         pygame.event.post(pygame.event.Event(NEW_GAME))
 
@@ -42,6 +47,7 @@ class Game():
 
             # Press Q (all systems) or ALT+F4 (Windows) or CMD+Q (MAC) to quit the game !
             event_list = pygame.event.get()
+            event_list.extend(Joystick(event_list).to_keyboard_events())
             for event in event_list:
                 if event.type == KEYDOWN and event.key == K_q or event.type == QUIT:
                     done = True
