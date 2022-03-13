@@ -1,7 +1,7 @@
 # blasteroidspi
 Implementation of the Asteroids game.  
   
-Lear how to program this game line by line from [free video lessons on Youtube](https://youtube.com/playlist?list=PLiu4wMrYDH6Jtuu-Z8irw3g9_pUauY1Ta)
+Lear how to program this game line by line from these [free video lessons on Youtube](https://youtube.com/playlist?list=PLiu4wMrYDH6Jtuu-Z8irw3g9_pUauY1Ta)
   
 Inspiration came from the book [Head First C: A Brain-Friendly Guide](https://www.amazon.com/Head-First-C-Brain-Friendly-Guide/dp/1449399916/ref=sr_1_1?crid=3PXLMYX4NOXK9&keywords=head+first+c&qid=1641307105&sprefix=head+first+c%2Caps%), where the requirements and details of objects were born.  
   
